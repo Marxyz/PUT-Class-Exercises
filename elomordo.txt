@@ -1,7 +1,0 @@
->Elo mordo, chyba juz dziala
->nasz mesend¿er kuhwa
->to robimy jak¹œ stronke? XD tylko jestem lakiem i nie umiem za duzo, ale wiesz, zawsze mozna sie pouczyc w ten sposob xd
->no ja jakas bym zrobil, tylko rzuc pomysl o czym, chcemy taka zautomatyzowana, jak internetowy kurs walut czy jakis licznik ile dni zycia ci zostalo
-noi musimy rzucic moneta w czym to pisac. ja bym z checia sie pouczyl javascripta
->dawaj licznik zycia XD i smsa dla klienta o dacie, no to mozemy zsporobwac z JSem ja w sumie i tak nic nie ogarniam
->telefon mi sie spierdoli³ i nie moge na ompie zalogowac sie na peja bo mam 2fa
