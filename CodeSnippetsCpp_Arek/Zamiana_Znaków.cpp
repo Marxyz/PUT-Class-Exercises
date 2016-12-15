@@ -65,19 +65,19 @@ string PodmienZnaki(const map<char, int>& mapa, string wyraz) //powinno byc cons
 	int len = wyraz.size();
 	for (int i = 0; i < len; i++)
 	{
+		//if (mapa[wyraz[i]] != NULL)
+		//{
 		try
 		{
-			//if (mapa[wyraz[i]] != NULL)
-			//{
 			result += to_string(mapa.at(wyraz[i]));
-			//}
 		}
+		//}
 		//else{
 		catch (out_of_range x)
 		{
 			result += wyraz[i];
-			//}	
 		}
+		//}	
 
 	}
 	return result;
