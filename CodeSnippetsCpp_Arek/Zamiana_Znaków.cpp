@@ -29,7 +29,7 @@ int PobierzLiczbePodstawien()
 	} while (flag != true);
 	return liczba_podstawien;
 }
-void PobierzPodstawienia(map<char,int>& slownik, int liczba_podstawien)
+void PobierzPodstawienia(map<char, int>& slownik, int liczba_podstawien)
 {
 	int i = 0;
 	while (i < liczba_podstawien)
@@ -59,23 +59,26 @@ void PobierzPodstawienia(map<char,int>& slownik, int liczba_podstawien)
 	}
 }
 
-string PodmienZnaki(map<char, int>& mapa, string wyraz) //powinno byc const map<char, int>& mapa ale wtedy przestaje dzia³aæ
-{
-	string result;
+string PodmienZnaki(const map<char, int>& mapa, string wyraz) //powinno byc const map<char, int>& mapa ale wtedy przestaje dzia³aæ
+{														//uzylem funkcji .at(), która kiedy w mapie nie ma odpowiedniego klucza wywala wyjatek, wiec umiescilem w try-catchu, no ale 
+	string result;										//nie wiem czy tak mo¿na na zajeciach :P
 	int len = wyraz.size();
 	for (int i = 0; i < len; i++)
 	{
-		
-		if (mapa[wyraz[i]] != NULL)
+		try
 		{
-			result += to_string(mapa[wyraz[i]]);
-			
+			//if (mapa[wyraz[i]] != NULL)
+			//{
+			result += to_string(mapa.at(wyraz[i]));
+			//}
 		}
-		else
+		//else{
+		catch (out_of_range x)
 		{
 			result += wyraz[i];
+			//}	
 		}
-		
+
 	}
 	return result;
 }
@@ -86,7 +89,7 @@ int main()
 	int liczba_podstawien;
 	liczba_podstawien = PobierzLiczbePodstawien();
 	PobierzPodstawienia(podstawienia, liczba_podstawien);
-	string wyraz = "Moj stary jest fantykiem wedkarstwa";
+	string wyraz = "Moj stary jest fanatykiem wedkarstwa";
 	string result = PodmienZnaki(podstawienia, wyraz);
 	cout << result << endl;
 
