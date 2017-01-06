@@ -1,0 +1,28 @@
+
+%\documentclass{beamer}
+%\mode<presentation> {
+%\usetheme{Warsaw}
+%\useoutertheme{infolines}
+%\useinnertheme{rounded}
+%\setbeamercovered{transparent}
+%\setbeamertemplate{theorems}[numbered]
+%\usecolortheme{rose}
+%}
+\usepackage{amsmath,amssymb}
+\title{Sample title}
+\author{Anonymous}
+\institute{ShareLaTeX}
+\date{2014}
+ 
+ 
+ 
+\begin{document}
+ 
+\frame{\titlepage}
+ 
+\begin{frame}
+\frametitle{Sample frame title}
+This is a text in first frame. This is a text in first frame. This is a text in first frame.
+\end{frame}
+ 
+\end{document}

@@ -1,0 +1,10 @@
+\select@language {polish}
+\contentsline {section}{\numberline {1}\LaTeX \ w Wikipedii}{1}
+\contentsline {section}{\numberline {2}Wzory matematyczne w \LaTeX \/u}{1}
+\contentsline {subsection}{\numberline {2.1}Ci\IeC {\k a}g\IeC {\l }a transformata Fouriera}{1}
+\contentsline {subsection}{\numberline {2.2}Dyskretna transformata Fouriera}{2}
+\contentsline {subsection}{\numberline {2.3}Elementarne Macierze Rotacji}{2}
+\contentsline {section}{\numberline {3}Tabele, listingi, rysunki}{2}
+\contentsline {subsection}{\numberline {3.1}Tabele}{2}
+\contentsline {subsection}{\numberline {3.2}Listing.}{3}
+\contentsline {subsection}{\numberline {3.3}Rysunki.}{3}
