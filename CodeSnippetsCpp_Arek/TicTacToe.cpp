@@ -86,9 +86,117 @@ void PosuniecieGracza(vector<vector<string>>& plansza, Player player)
 
 }
 
+void RuchBota(vector<vector<string>>& plansza, Player bot)
+{
+
+	// Sprawdzenie mo¿liwych ruchów poziomych 
+	for (int row = 0; row < plansza.size(); row++)
+	{
+		int pkt = 0;
+		for (int column = 0; column < plansza[row].size(); column++)
+		{
+
+			if (plansza[row][column] != bot.Symbol && plansza[row][column] != " ")
+			{
+				pkt += 1;
+			}
+			if (pkt == 2)
+			{
+				for (int it = 0; it < plansza[row].size(); it++)
+				{
+					if (plansza[row][it] == " ")
+					{
+						plansza[row][it] == bot.Symbol;
+						return;
+					}
+				}
+			}
+		}
+	}
+
+	// Ruchy pionowe
+	for (int row = 0; row < plansza.size(); row++)
+	{
+		int pkt = 0;
+		for (int column = 0; column < plansza[row].size(); column++)
+		{
+			int pkt = 0;
+			if (plansza[column][row] != bot.Symbol && plansza[column][row] != " ")
+			{
+				pkt += 1;
+			}
+			if (pkt == 2)
+			{
+				for (int it = 0; it < plansza[column].size(); it++)
+				{
+					if (plansza[column][it] == " ")
+					{
+						plansza[row][it] == bot.Symbol;
+						return;
+					}
+				}
+			}
+		}
+	}
+
+	//Ruchy na ukos
+
+	//ruch w prawo na dol, na ukos, patrzac od [0][0]
+	int pkt = 0;
+	for (int i = 0; i < plansza.size(); i++)
+	{
+		if (plansza[i][i] != bot.Symbol && plansza[i][i] != " ")
+		{
+			pkt += 1;
+		}
+		if (pkt == 2)
+		{
+			for (int iti = 0; iti < plansza.size(); iti++)
+			{
+				if (plansza[iti][iti] == " ")
+				{
+					plansza[iti][iti] == bot.Symbol;
+					return;
+				}
+			}
+		}
+	}
+
+	//Ruch w prawo do góry na ukos, patrz¹c od [2][0]
+
+	int pkt = 0;
+	int pomo = 2;
+	for (int i = 0; i < plansza.size()`; i++)
+	{
+		if (plansza[pomo][i] != bot.Symbol && plansza[pomo][i] != " ")
+		{
+			pkt += 1;
+		}
+		if (pkt == 2)
+		{
+			int pomo2 = 2;
+			for (int itii = 0; itii < plansza.size()`; itii++)
+			{
+				if (plansza[pomo][itii] != bot.Symbol && plansza[pomom][itii] != " ")
+				{
+					plansza[pomo][itii] == bot.Symbol;
+				}
+				pomo2--;
+
+		}
+		pomo--;
+	}
+
+	// Po sprawdzeniu czy nastepny ruch bota nie jest przegrywajacym, czas sprawdzic czy botowi bardziej oplaca sie 
+	// zablokowac kolumne gracza z jednym symbolem czy zaatakowac
+
+
+}
+
 
 int main()
 {
+	
 
 	int tura = 1;
 	bool main_loop = true;
