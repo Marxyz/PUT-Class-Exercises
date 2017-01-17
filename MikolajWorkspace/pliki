@@ -1,0 +1,35 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+
+
+using namespace std;
+
+int main(){
+	ifstream file;
+	string line;
+	vector<string> lines;
+	file.open("C:/Users/Student/Desktop/kolaszko1/test.txt");
+	if (file.is_open()){
+		cout << "Otwarto plik test" << endl;
+	}
+	else{
+		cerr << "nie dziala" << endl;
+	}
+	while (getline(file, line)){
+		lines.push_back(line);
+		cout << line << endl;
+	}
+	ofstream nextFile;
+	nextFile.open("C:/Users/Student/Desktop/kolaszko1/testKolejny.txt");
+	if (nextFile.is_open()){
+		cout << "Otwarto plik testKolejny" << endl;
+	}
+	for (auto itr = lines.rbegin(); itr != lines.rend(); itr++){
+		nextFile << *itr<<"\n";
+	}
+	file.close();
+	nextFile.close();
+	return 0;
+}
