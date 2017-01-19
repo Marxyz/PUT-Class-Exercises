@@ -1,0 +1,116 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <fstream>
+#include <list>
+#include <algorithm>
+
+using namespace std;
+
+struct planeta{
+	string nazwa;
+	int srednica;
+	double masa;
+	long long int odleglosc;
+	vector<string> ksiezyce;
+
+};
+
+bool czyWiecej(const planeta& a,const planeta &b){
+	if (a.ksiezyce.size() > b.ksiezyce.size()){
+		return true;
+	}
+	else return false;
+}
+
+void Usun(list<planeta>&lista){
+	double masa;
+	cin >> masa;
+	for (auto itr = lista.begin(); itr != lista.end(); ){
+		if (itr->masa > masa){
+			itr = lista.erase(itr);
+		}
+		else itr++;
+	}
+}
+
+planeta Odczytaj(string linia){
+	planeta tmp;
+	unsigned int pos = linia.find(';');
+	tmp.nazwa = linia.substr(0, pos);
+	linia = linia.substr(pos+1);
+	
+	pos = linia.find(';');
+	tmp.srednica = stoi(linia.substr(0, pos));
+	linia = linia.substr(pos + 1);
+	
+	pos = linia.find(';');
+	tmp.masa = stod(linia.substr(0, pos));
+	linia = linia.substr(pos + 1);
+	
+	pos = linia.find(';');
+	if (pos == string::npos){
+		tmp.odleglosc = stoll(linia);
+	}
+	else{
+		tmp.odleglosc = (stoll(linia.substr(0, pos)));
+		linia = linia.substr(pos + 1);
+		do{
+			pos = linia.find(',');
+			tmp.ksiezyce.push_back(linia.substr(0, pos));
+			if (pos != string::npos){
+				linia = linia.substr(pos + 1);
+			}
+		} while (pos != string::npos);
+	}
+	
+	return tmp;
+}
+
+int main(){
+	ifstream file;
+	file.open("planety.txt");
+	if (file.is_open()){
+		cout << "Otwarto plik" << endl;
+	}
+	
+	list<planeta> listaPlanet;
+
+	
+	while (!file.eof()){
+		string linia;
+		getline(file, linia);
+		planeta tmp = Odczytaj(linia);
+		listaPlanet.push_back(tmp);
+	}
+	listaPlanet.sort(czyWiecej);
+	
+	Usun(listaPlanet);
+	
+	for (auto itr = listaPlanet.begin(); itr != listaPlanet.end(); itr++){
+		cout << itr->nazwa << endl;
+	}
+	ofstream file2;
+	file2.open("wyniki.txt");
+	if (file2.is_open()){
+		cout << "Otwarto plik do zapisu" << endl;
+	}
+	for (auto itr = listaPlanet.begin(); itr != listaPlanet.end(); itr++){
+		file2 << itr->nazwa << ';' << itr->srednica << ";" << itr->masa << ";" << itr->odleglosc;
+		if ((itr->ksiezyce).size() != 0){
+			file2 << ';';
+
+			for (auto itrx = itr->ksiezyce.begin(); itrx != itr->ksiezyce.end(); itrx++){
+				file2 << *itrx<<',';
+			}
+			file2 << "\r \n";
+		}
+		else{
+			file2 << "\r \n";
+		}
+
+	}
+	file.close();
+	file2.close();
+	return 0;
+}
