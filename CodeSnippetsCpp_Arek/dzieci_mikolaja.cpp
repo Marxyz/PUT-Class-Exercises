@@ -104,7 +104,7 @@ void main()
 	cout << " - - - - - - - - - S - O - R - T - - - - - - - - - -  " << endl;
 	/*sort(Zbior_Dzieci.begin(), Zbior_Dzieci.end(), KtoBlizszy);*/
 	sort(Zbior_Dzieci.begin(), Zbior_Dzieci.end(), SortujWgNazwiska);
-	vector<Dziecko>::iterator it = find_if(Zbior_Dzieci.begin(), Zbior_Dzieci.end(), czyBlisko);
+	vector<Dziecko>::iterator it = find_if(Zbior_Dzieci.begin(), Zbior_Dzieci.end(), czyBlisko); // zwraca iterator, wiec w odpowiedniej petli jest mozliwe szybkie wyszukanie wielu przedmiotow spelniajacych predykat, jednak za pomoca jednarozowego polecenia find_if - nie.
 	cout << "Dziecko blizej niz 10 jednostek to " << it->Name << endl;
 	wyswietlTabliczeDzieci(Zbior_Dzieci);
 }
