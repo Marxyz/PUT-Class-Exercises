@@ -1,5 +1,0 @@
-﻿  main.cpp
-c:\users\user\documents\visual studio 2015\projects\pikejson\cwiczenie_z_klasa_bazadanych\cwiczenie_z_klasa_bazadanych\main.cpp(7): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\user\documents\visual studio 2015\projects\pikejson\cwiczenie_z_klasa_bazadanych\cwiczenie_z_klasa_bazadanych\main.cpp(8): warning C4305: 'argument': truncation from 'double' to 'float'
-  Cwiczenie_Z_Klasa_BazaDanych.vcxproj -> C:\Users\User\Documents\Visual Studio 2015\Projects\Pikejson\Cwiczenie_Z_Klasa_BazaDanych\Debug\Cwiczenie_Z_Klasa_BazaDanych.exe
-  Cwiczenie_Z_Klasa_BazaDanych.vcxproj -> C:\Users\User\Documents\Visual Studio 2015\Projects\Pikejson\Cwiczenie_Z_Klasa_BazaDanych\Debug\Cwiczenie_Z_Klasa_BazaDanych.pdb (Full PDB)
