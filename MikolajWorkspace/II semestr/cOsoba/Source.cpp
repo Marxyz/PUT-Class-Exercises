@@ -55,6 +55,7 @@ int main() {
 			bazaOsob baza2 = baza.listaWiekowa(min, max);
 			baza2.wyswietl();
 			_getch();
+			break;
 		}
 		default: {
 			system("cls");
