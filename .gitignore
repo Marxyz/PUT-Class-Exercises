@@ -1,0 +1,7 @@
+*.suo
+*.opendb
+*.db
+*.sln
+*.vcxproj
+*.filters
+*.user
