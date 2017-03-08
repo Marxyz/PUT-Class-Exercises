@@ -12,13 +12,14 @@ class Macierz
 
 	Macierz DodajMacierz(Macierz macierzB);
 	Macierz PomnozMacierz(Macierz macierzB);
-	void PobierzMacierz();
-	void Wyswietl();
+	void UstawRozmiar(int wysokosc, int szerokosc);
+	
 
 	
 
 public:
-
+	void PobierzMacierz();
+	void Wyswietl();
 	Macierz();
 	Macierz(int wysokosc, int szerokosc);
 
