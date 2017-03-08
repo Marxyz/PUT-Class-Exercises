@@ -14,6 +14,7 @@ class Macierz
 	Macierz PomnozMacierz(Macierz macierzB);
 	void PobierzMacierz();
 	void Wyswietl();
+
 	
 
 public:
