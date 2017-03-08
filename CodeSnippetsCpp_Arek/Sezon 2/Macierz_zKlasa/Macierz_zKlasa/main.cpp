@@ -4,11 +4,11 @@
 
 int main(int argc, char* argv[])
 {
-	Macierz test(2, 3),test3;
+	Macierz test(2, 3),test2,test3;
 	test.Wyswietl();
-	Macierz test2;
 	test2.PobierzMacierz();
-	test2.Wyswietl();
-	test3.Wyswietl();
+	test.PobierzMacierz();
+	test3 = test2.DodajMacierz(test);
+
 	return 0;
 }

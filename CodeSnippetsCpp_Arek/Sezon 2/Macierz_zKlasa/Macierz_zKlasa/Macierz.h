@@ -1,7 +1,5 @@
 #pragma once
-#include <iostream>
 #include <vector>
-
 using namespace std;
 
 class Macierz
@@ -10,14 +8,17 @@ class Macierz
 	int _iloscRzedow;
 	vector<vector<int>> _zasob;
 
-	Macierz DodajMacierz(Macierz macierzB);
-	Macierz PomnozMacierz(Macierz macierzB);
-	void UstawRozmiar(int wysokosc, int szerokosc);
 	
+	Macierz PomnozMacierz(Macierz& macierzB);
+	
+	void UstawRozmiarWypelnZerem(int wysokosc, int szerokosc);
 
 	
 
 public:
+	Macierz OdejmijMacierz(Macierz & macierzB);
+	Macierz DodajMacierz(Macierz& macierzB);
+	Macierz PomnozMacierz(int skalar);
 	void PobierzMacierz();
 	void Wyswietl();
 	Macierz();

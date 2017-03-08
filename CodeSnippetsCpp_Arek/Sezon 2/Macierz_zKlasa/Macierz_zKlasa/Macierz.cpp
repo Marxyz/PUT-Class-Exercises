@@ -1,9 +1,41 @@
 #include "Macierz.h"
+#include <iostream>
 #include <string>
-
 using namespace std;
 
-void Macierz::UstawRozmiar(int wysokosc, int szerokosc)
+Macierz Macierz::PomnozMacierz(int skalar)
+{
+	for (auto itr = _zasob.begin(); itr != _zasob.end(); ++itr)
+	{
+		for (auto itr2 = itr->begin(); itr2 != itr->end(); ++itr2)
+		{
+			int wartosc = *itr2;
+			*itr2 = wartosc * skalar;
+		}
+	}
+	return *this;
+	
+}
+
+Macierz Macierz::DodajMacierz(Macierz& macierzB)
+{
+	if (macierzB._iloscKolumn != _iloscKolumn || macierzB._iloscRzedow != _iloscRzedow )
+	{
+		cout << "Operacja niemo¿liwa do zrealizowania, rozmiary nie sa identyczne." << endl;
+		return *this;
+	}
+	for (int c = 0; c < _iloscRzedow; c++)
+	{
+		for (int r = 0; r < _iloscKolumn; r++)
+		{
+			_zasob[c][r] += macierzB._zasob[c][r];
+		}
+	}
+
+	return *this;
+}
+
+void Macierz::UstawRozmiarWypelnZerem(int wysokosc, int szerokosc)
 {
 	_iloscKolumn = szerokosc;
 	_iloscRzedow = wysokosc;
@@ -17,6 +49,25 @@ void Macierz::UstawRozmiar(int wysokosc, int szerokosc)
 		}
 	}
 }
+
+Macierz Macierz::OdejmijMacierz(Macierz& macierzB)
+{
+	if (macierzB._iloscKolumn != _iloscKolumn || macierzB._iloscRzedow != _iloscRzedow)
+	{
+		cout << "Operacja niemo¿liwa do zrealizowania, rozmiary nie sa identyczne." << endl;
+		return *this;
+	}
+	for (int c = 0; c < _iloscRzedow; c++)
+	{
+		for (int r = 0; r < _iloscKolumn; r++)
+		{
+			_zasob[c][r] -= macierzB._zasob[c][r];
+		}
+	}
+
+	return *this;
+}
+
 
 void Macierz::PobierzMacierz()
 {
@@ -47,7 +98,7 @@ void Macierz::PobierzMacierz()
 		break;
 	} while (true);
 
-	UstawRozmiar(_iloscKolumn, _iloscRzedow);
+	UstawRozmiarWypelnZerem(_iloscKolumn, _iloscRzedow);
 	
 	for (int c = 0; c  < _iloscRzedow ; c++)
 	{
@@ -86,11 +137,11 @@ void Macierz::Wyswietl()
 
 Macierz::Macierz() : _iloscKolumn(1), _iloscRzedow(1)
 {
-	UstawRozmiar(_iloscKolumn, _iloscRzedow);
+	UstawRozmiarWypelnZerem(_iloscKolumn, _iloscRzedow);
 }
 
 Macierz::Macierz(int wysokosc, int szerokosc)
 {
-	UstawRozmiar(wysokosc, szerokosc);
+	UstawRozmiarWypelnZerem(wysokosc, szerokosc);
 }
 
