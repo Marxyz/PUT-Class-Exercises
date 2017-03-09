@@ -12,10 +12,11 @@ class Macierz
 	Macierz PomnozMacierz(Macierz& macierzB);
 	
 	void UstawRozmiarWypelnZerem(int wysokosc, int szerokosc);
-
+	
 	
 
 public:
+	string ToString();
 	Macierz OdejmijMacierz(Macierz & macierzB);
 	Macierz DodajMacierz(Macierz& macierzB);
 	Macierz PomnozMacierz(int skalar);

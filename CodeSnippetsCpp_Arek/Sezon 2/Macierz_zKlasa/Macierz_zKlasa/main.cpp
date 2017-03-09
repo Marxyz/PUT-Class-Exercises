@@ -9,6 +9,9 @@ int main(int argc, char* argv[])
 	test2.PobierzMacierz();
 	test.PobierzMacierz();
 	test3 = test2.DodajMacierz(test);
+	test2.Wyswietl();
+	string testS;
+	testS = test3.ToString();
 
 	return 0;
 }

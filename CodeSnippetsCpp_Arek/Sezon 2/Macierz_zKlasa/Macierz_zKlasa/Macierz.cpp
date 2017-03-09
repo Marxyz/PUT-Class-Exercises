@@ -5,7 +5,9 @@ using namespace std;
 
 Macierz Macierz::PomnozMacierz(int skalar)
 {
-	for (auto itr = _zasob.begin(); itr != _zasob.end(); ++itr)
+	Macierz tmp;
+	tmp.UstawRozmiarWypelnZerem(_iloscRzedow, _iloscKolumn);
+	for (auto itr = tmp._zasob.begin(); itr != tmp._zasob.end(); ++itr)
 	{
 		for (auto itr2 = itr->begin(); itr2 != itr->end(); ++itr2)
 		{
@@ -13,7 +15,7 @@ Macierz Macierz::PomnozMacierz(int skalar)
 			*itr2 = wartosc * skalar;
 		}
 	}
-	return *this;
+	return tmp;
 	
 }
 
@@ -48,6 +50,20 @@ void Macierz::UstawRozmiarWypelnZerem(int wysokosc, int szerokosc)
 			*itr2 = 0;
 		}
 	}
+}
+
+string Macierz::ToString()
+{
+	string result;
+	for (auto itr = _zasob.begin(); itr != _zasob.end(); ++itr)
+	{
+		for (auto itr2 = itr->begin(); itr2 != itr->end(); ++itr2)
+		{
+			result += to_string(*itr2) + ',';
+		}
+		result += '\n';
+	}
+	return result;
 }
 
 Macierz Macierz::OdejmijMacierz(Macierz& macierzB)
@@ -106,7 +122,7 @@ void Macierz::PobierzMacierz()
 		{
 			do
 			{
-				cout << "Podaj wartosc " + to_string(c) + " kolumny i " + std::to_string(r)  + " rzedu: " << endl;
+				cout << "Podaj wartosc " + to_string(c) + " kolumny i " + to_string(r)  + " rzedu: " << endl;
 				cin >> _zasob[c][r];
 
 				if (cin.fail())
