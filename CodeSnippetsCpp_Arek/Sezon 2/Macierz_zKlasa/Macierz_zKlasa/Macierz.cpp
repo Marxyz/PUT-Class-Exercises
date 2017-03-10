@@ -77,7 +77,7 @@ void Macierz::UstawRozmiarWypelnZerem(int wysokosc, int szerokosc)
 	}
 }
 
-void Macierz::MacierzFromString(string input)
+void Macierz::MacierzFromString( string input)
 {
 	string temp = input;
 	int co_ile = 0;
@@ -110,22 +110,41 @@ void Macierz::MacierzFromString(string input)
 
 }
 
-Macierz Macierz::operator+(Macierz& macierzB)
+Macierz Macierz::Poteguj(const int n)
+{
+	if (n< 0)
+	{
+		cout << "Wykladnik powinien byc wiekszy od 0." << endl;
+		return Macierz(_iloscRzedow, _iloscKolumn);
+	}
+	if (n == 1)
+	{
+		return *this ;
+	}
+	return Poteguj(n - 1) * *this;
+}
+
+Macierz Macierz::operator^(const int n)
+{
+	return this->Poteguj(n);
+}
+
+Macierz Macierz::operator+(const Macierz& macierzB)
 {
 	return this->DodajMacierz(macierzB);
 }
 
-Macierz Macierz::operator-(Macierz& macierzB)
+Macierz Macierz::operator-(const Macierz& macierzB)
 {
 	return this->OdejmijMacierz(macierzB);
 }
 
-Macierz Macierz::operator*(Macierz& macierzB)
+Macierz Macierz::operator*(const Macierz& macierzB)
 {
 	return this->PomnozMacierz(macierzB);
 }
 
-Macierz Macierz::operator*(int skalar)
+Macierz Macierz::operator*(const int skalar)
 {
 	return this->PomnozMacierz(skalar);
 }
@@ -267,7 +286,7 @@ Macierz::Macierz(int wysokosc, int szerokosc)
 	UstawRozmiarWypelnZerem(wysokosc, szerokosc);
 }
 
-Macierz::Macierz(string input)
+Macierz::Macierz(const string input)
 {
 	this->MacierzFromString(input);
 }

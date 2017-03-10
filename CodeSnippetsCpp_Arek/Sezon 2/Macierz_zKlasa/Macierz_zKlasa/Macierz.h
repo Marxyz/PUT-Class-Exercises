@@ -14,13 +14,16 @@ class Macierz
 	void UstawRozmiarWypelnZerem(int wysokosc, int szerokosc);
 	Macierz PomnozMacierz(const Macierz& macierzB);
 	void MacierzFromString(string input);
+	Macierz Poteguj(const int n);
 
 public:
 
-	Macierz operator+(Macierz& macierzB);
-	Macierz operator-(Macierz& macierzB);
-	Macierz operator*(Macierz& macierzB);
-	Macierz operator*(int skalar);
+	
+	Macierz operator^(const int n);
+	Macierz operator+(const Macierz& macierzB);
+	Macierz operator-(const Macierz& macierzB);
+	Macierz operator*(const Macierz& macierzB);
+	Macierz operator*(const int skalar);
 
 	string ToString();
 	void PobierzMacierz();
@@ -28,7 +31,7 @@ public:
 
 	Macierz();
 	Macierz(int wysokosc, int szerokosc);
-	Macierz(string input);
+	Macierz(const string input);
 };
 
 Macierz operator*(const int& lhs,  Macierz& rhs);

@@ -11,4 +11,6 @@ int main(int argc, char* argv[])
 	r.Wyswietl();
 	auto res = 2 * test2 * 2 * test;
 	res.Wyswietl();
+	auto res3 = res ^ 2;
+	res3.Wyswietl();
 }
