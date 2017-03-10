@@ -1,12 +1,34 @@
 #include "Macierz.h"
 #include <iostream>
 #include <string>
+#include <algorithm>;
 using namespace std;
 
-Macierz Macierz::PomnozMacierz(int skalar)
+string ReplaceString(string subject, const string& search,
+	const string& replace) {
+	int pos = 0;
+	while ((pos = subject.find(search, pos)) != string::npos)
+	{
+
+		subject.replace(pos, search.length(), replace);
+		pos += replace.length();
+	}
+	return subject;
+}
+
+int FindNumberOfOccurence(const string& subject, const char search)
+{
+	return count(subject.begin(), subject.end(), search);
+}
+
+
+
+
+Macierz Macierz::PomnozMacierz(const int skalar)
 {
 	Macierz tmp;
 	tmp.UstawRozmiarWypelnZerem(_iloscRzedow, _iloscKolumn);
+	tmp = *this;
 	for (auto itr = tmp._zasob.begin(); itr != tmp._zasob.end(); ++itr)
 	{
 		for (auto itr2 = itr->begin(); itr2 != itr->end(); ++itr2)
@@ -16,25 +38,28 @@ Macierz Macierz::PomnozMacierz(int skalar)
 		}
 	}
 	return tmp;
-	
+
 }
 
-Macierz Macierz::DodajMacierz(Macierz& macierzB)
+
+Macierz Macierz::DodajMacierz(const Macierz& macierzB)
 {
-	if (macierzB._iloscKolumn != _iloscKolumn || macierzB._iloscRzedow != _iloscRzedow )
+	Macierz tmp;
+	tmp = *this;
+	if (macierzB._iloscKolumn != _iloscKolumn || macierzB._iloscRzedow != _iloscRzedow)
 	{
 		cout << "Operacja niemo¿liwa do zrealizowania, rozmiary nie sa identyczne." << endl;
-		return *this;
+		return Macierz(_iloscRzedow,_iloscKolumn);
 	}
-	for (int c = 0; c < _iloscRzedow; c++)
+	for (int c = 0; c < tmp._iloscRzedow; c++)
 	{
-		for (int r = 0; r < _iloscKolumn; r++)
+		for (int r = 0; r < tmp._iloscKolumn; r++)
 		{
-			_zasob[c][r] += macierzB._zasob[c][r];
+			tmp._zasob[c][r] += macierzB._zasob[c][r];
 		}
 	}
 
-	return *this;
+	return tmp;
 }
 
 void Macierz::UstawRozmiarWypelnZerem(int wysokosc, int szerokosc)
@@ -52,6 +77,60 @@ void Macierz::UstawRozmiarWypelnZerem(int wysokosc, int szerokosc)
 	}
 }
 
+void Macierz::MacierzFromString(string input)
+{
+	string temp = input;
+	int co_ile = 0;
+	int helper = 0;
+	_iloscRzedow = FindNumberOfOccurence(temp, ';');
+	temp = temp.substr(0, input.find(';') + 1);
+	_iloscKolumn = FindNumberOfOccurence(temp, ',');
+	UstawRozmiarWypelnZerem(_iloscRzedow, _iloscKolumn);
+	input = ReplaceString(input, ";", "");
+	input = ReplaceString(input, ",", "");
+	for (int i = 0; i < _iloscRzedow; i++)
+	{
+
+		for (int i2 = 0; i2 < _iloscKolumn; i2++)
+		{
+			if (input[co_ile + i2 + helper ] == '-')
+			{
+				_zasob[i][i2] = (input[co_ile + helper + i2 + 1] - '0')*(-1);
+				helper++;
+			}
+			else
+			{
+				_zasob[i][i2] = (input[co_ile + i2 + helper] - '0');
+			}
+
+		}
+		co_ile += _iloscKolumn;
+	}
+
+
+}
+
+Macierz Macierz::operator+(Macierz& macierzB)
+{
+	return this->DodajMacierz(macierzB);
+}
+
+Macierz Macierz::operator-(Macierz& macierzB)
+{
+	return this->OdejmijMacierz(macierzB);
+}
+
+Macierz Macierz::operator*(Macierz& macierzB)
+{
+	return this->PomnozMacierz(macierzB);
+}
+
+Macierz Macierz::operator*(int skalar)
+{
+	return this->PomnozMacierz(skalar);
+}
+
+
 string Macierz::ToString()
 {
 	string result;
@@ -61,27 +140,54 @@ string Macierz::ToString()
 		{
 			result += to_string(*itr2) + ',';
 		}
-		result += '\n';
+		result += ';';
 	}
 	return result;
 }
 
-Macierz Macierz::OdejmijMacierz(Macierz& macierzB)
+Macierz Macierz::PomnozMacierz(const Macierz& macierzB)
 {
+	Macierz result;
+	if (_iloscKolumn != macierzB._iloscRzedow)
+	{
+		cout << "Wymmiary macierzy sa nieprawidlowe." << endl;
+		result.UstawRozmiarWypelnZerem(_iloscRzedow, _iloscKolumn);
+		return result;
+	}
+	result.UstawRozmiarWypelnZerem(_iloscRzedow, macierzB._iloscKolumn);
+	for (int i = 0; i < result._iloscRzedow; i++)
+	{
+		for (int j = 0; j < result._iloscKolumn; j++)
+		{
+			for (int k = 0; k < _iloscKolumn; k++)
+			{
+				result._zasob[i][j] += _zasob[i][k] * macierzB._zasob[k][j];
+			}
+		}
+	}
+	return result;
+
+
+}
+
+Macierz Macierz::OdejmijMacierz(const Macierz& macierzB)
+{
+	Macierz tmp;
+	tmp = *this;
 	if (macierzB._iloscKolumn != _iloscKolumn || macierzB._iloscRzedow != _iloscRzedow)
 	{
 		cout << "Operacja niemo¿liwa do zrealizowania, rozmiary nie sa identyczne." << endl;
-		return *this;
+		return Macierz(_iloscRzedow,_iloscKolumn);
 	}
-	for (int c = 0; c < _iloscRzedow; c++)
+	for (int c = 0; c < tmp._iloscRzedow; c++)
 	{
-		for (int r = 0; r < _iloscKolumn; r++)
+		for (int r = 0; r < tmp._iloscKolumn; r++)
 		{
-			_zasob[c][r] -= macierzB._zasob[c][r];
+			tmp._zasob[c][r] -= macierzB._zasob[c][r];
 		}
 	}
 
-	return *this;
+	return tmp;
 }
 
 
@@ -114,15 +220,15 @@ void Macierz::PobierzMacierz()
 		break;
 	} while (true);
 
-	UstawRozmiarWypelnZerem(_iloscKolumn, _iloscRzedow);
-	
-	for (int c = 0; c  < _iloscRzedow ; c++)
+	UstawRozmiarWypelnZerem(_iloscRzedow, _iloscKolumn);
+
+	for (int c = 0; c < _iloscRzedow; c++)
 	{
 		for (int r = 0; r < _iloscKolumn; r++)
 		{
 			do
 			{
-				cout << "Podaj wartosc " + to_string(c) + " kolumny i " + to_string(r)  + " rzedu: " << endl;
+				cout << "Podaj wartosc " + to_string(c) + " kolumny i " + to_string(r) + " rzedu: " << endl;
 				cin >> _zasob[c][r];
 
 				if (cin.fail())
@@ -159,5 +265,15 @@ Macierz::Macierz() : _iloscKolumn(1), _iloscRzedow(1)
 Macierz::Macierz(int wysokosc, int szerokosc)
 {
 	UstawRozmiarWypelnZerem(wysokosc, szerokosc);
+}
+
+Macierz::Macierz(string input)
+{
+	this->MacierzFromString(input);
+}
+
+Macierz operator*(const int& lhs,  Macierz& rhs)
+{
+	return rhs * lhs;
 }
 
