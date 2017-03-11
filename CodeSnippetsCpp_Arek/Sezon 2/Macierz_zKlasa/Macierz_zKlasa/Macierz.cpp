@@ -9,7 +9,6 @@ string ReplaceString(string subject, const string& search,
 	int pos = 0;
 	while ((pos = subject.find(search, pos)) != string::npos)
 	{
-
 		subject.replace(pos, search.length(), replace);
 	}
 	return subject;
@@ -23,7 +22,7 @@ int FindNumberOfOccurence(const string& subject, const char search)
 
 
 
-Macierz Macierz::PomnozMacierz(const int skalar)
+Macierz Macierz::PomnozMacierz(const double skalar)
 {
 	Macierz tmp;
 	tmp.UstawRozmiarWypelnZerem(_iloscRzedow, _iloscKolumn);
@@ -126,7 +125,7 @@ Macierz Macierz::Poteguj(const int n)
 Macierz Macierz::StworzDopelnienie(int wiersz, int kolumna)
 {
 	Macierz tmp(_iloscRzedow - 1, _iloscKolumn - 1);
-	int tmp_k = 0;
+	int tmp_k;
 	int tmp_w = 0;
 	for (int w = 0; w < _iloscRzedow; w++)
 	{
@@ -148,17 +147,55 @@ Macierz Macierz::StworzDopelnienie(int wiersz, int kolumna)
 	return tmp;
 }
 
+Macierz Macierz::Podziel(Macierz& macierzB)
+{
+	return *this * macierzB.StworzMacierzTransponowana();
+}
+
+Macierz Macierz::StworzMacierzOdwrotna()
+{
+	Macierz temp(_iloscRzedow, _iloscKolumn);
+	int wyznacznik = this->ObliczWyznacznik();
+	for (int w = 0; w < temp._iloscRzedow; w++)
+	{
+		for (int k = 0; k < temp._iloscKolumn; k++)
+		{
+			temp._zasob[w][k] = this->StworzDopelnienie(w, k).ObliczWyznacznik();
+		}
+	}
+	double help = 1.0 * 1 / wyznacznik;
+	temp = temp.StworzMacierzTransponowana();
+	temp = temp* help;
+	return temp;
+}
+
+Macierz Macierz::StworzMacierzTransponowana()
+{
+	Macierz temp(_iloscRzedow, _iloscKolumn);
+	for (int i = 0; i < _iloscRzedow; i++) //transponowanie macierzy
+	{
+		for (int j = 0; j < _iloscKolumn; j++)
+			temp._zasob[j][i] = this->_zasob[i][j];
+	}
+	return temp;
+}
+
 int Macierz::ObliczWyznacznik()
 {
-	int stopien = _iloscKolumn;
+	if (_iloscKolumn != _iloscRzedow)
+	{
+		cout << "Macierz powinna byc kwadratowa." << endl;
+		return NULL;
+	}
+
 	double wyzn = 0;
-	if (stopien == 1)
+	if (_iloscKolumn == 1)
 	{
 		return _zasob[0][0];
 	}
 	for (int w = 0; w < _iloscRzedow ; w++)
 	{
-		wyzn += this->StworzDopelnienie(w, 0).ObliczWyznacznik() * (_zasob[w][0] * pow(-1, w + 0));
+		wyzn += (_zasob[w][0] * pow(-1, w + 0)) * this->StworzDopelnienie(w, 0).ObliczWyznacznik();
 	}
 	return wyzn;
 }
@@ -183,9 +220,14 @@ Macierz Macierz::operator*(const Macierz& macierzB)
 	return this->PomnozMacierz(macierzB);
 }
 
-Macierz Macierz::operator*(const int skalar)
+Macierz Macierz::operator*(const double skalar)
 {
 	return this->PomnozMacierz(skalar);
+}
+
+Macierz Macierz::operator/(Macierz& macierzB)
+{
+	return this->Podziel(macierzB);
 }
 
 
@@ -330,7 +372,7 @@ Macierz::Macierz(const string input)
 	this->MacierzFromString(input);
 }
 
-Macierz operator*(const int& lhs, Macierz& rhs)
+Macierz operator*(const double& lhs, Macierz& rhs)
 {
 	return rhs * lhs;
 }

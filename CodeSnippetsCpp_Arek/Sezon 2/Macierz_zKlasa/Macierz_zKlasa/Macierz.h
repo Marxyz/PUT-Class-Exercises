@@ -6,27 +6,35 @@ class Macierz
 {
 	int _iloscKolumn;
 	int _iloscRzedow;
-	vector<vector<int>> _zasob;
+	vector<vector<double>> _zasob;
 
 	Macierz OdejmijMacierz(const Macierz & macierzB);
 	Macierz DodajMacierz(const Macierz& macierzB);
-	Macierz PomnozMacierz(int skalar);
+	Macierz PomnozMacierz(const double skalar);
 	void UstawRozmiarWypelnZerem(int wysokosc, int szerokosc);
 	Macierz PomnozMacierz(const Macierz& macierzB);
 	void MacierzFromString(string input);
 	Macierz Poteguj(const int n);
-	
-
-public:
 	Macierz StworzDopelnienie(int wiersz, int kolumna);
-	int ObliczWyznacznik();
+	Macierz Podziel(Macierz& macierzB);
+	
+public:
+	
 	Macierz operator^(const int n);
 	Macierz operator+(const Macierz& macierzB);
 	Macierz operator-(const Macierz& macierzB);
 	Macierz operator*(const Macierz& macierzB);
-	Macierz operator*(const int skalar);
+	Macierz operator*(const double skalar);
+	Macierz operator/(Macierz & macierzB);
 
+
+	Macierz StworzMacierzOdwrotna();
+	Macierz StworzMacierzTransponowana();
+	
 	string ToString();
+	
+	int ObliczWyznacznik();
+
 	void PobierzMacierz();
 	void Wyswietl();
 
@@ -35,4 +43,4 @@ public:
 	Macierz(const string input);
 };
 
-Macierz operator*(const int& lhs,  Macierz& rhs);
+Macierz operator*(const double& lhs,  Macierz& rhs);
