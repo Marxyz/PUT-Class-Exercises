@@ -11,7 +11,6 @@ string ReplaceString(string subject, const string& search,
 	{
 
 		subject.replace(pos, search.length(), replace);
-		pos += replace.length();
 	}
 	return subject;
 }
@@ -49,7 +48,7 @@ Macierz Macierz::DodajMacierz(const Macierz& macierzB)
 	if (macierzB._iloscKolumn != _iloscKolumn || macierzB._iloscRzedow != _iloscRzedow)
 	{
 		cout << "Operacja niemo¿liwa do zrealizowania, rozmiary nie sa identyczne." << endl;
-		return Macierz(_iloscRzedow,_iloscKolumn);
+		return Macierz(_iloscRzedow, _iloscKolumn);
 	}
 	for (int c = 0; c < tmp._iloscRzedow; c++)
 	{
@@ -77,7 +76,7 @@ void Macierz::UstawRozmiarWypelnZerem(int wysokosc, int szerokosc)
 	}
 }
 
-void Macierz::MacierzFromString( string input)
+void Macierz::MacierzFromString(string input)
 {
 	string temp = input;
 	int co_ile = 0;
@@ -93,7 +92,7 @@ void Macierz::MacierzFromString( string input)
 
 		for (int i2 = 0; i2 < _iloscKolumn; i2++)
 		{
-			if (input[co_ile + i2 + helper ] == '-')
+			if (input[co_ile + i2 + helper] == '-')
 			{
 				_zasob[i][i2] = (input[co_ile + helper + i2 + 1] - '0')*(-1);
 				helper++;
@@ -112,16 +111,56 @@ void Macierz::MacierzFromString( string input)
 
 Macierz Macierz::Poteguj(const int n)
 {
-	if (n< 0)
+	if (n < 0)
 	{
 		cout << "Wykladnik powinien byc wiekszy od 0." << endl;
 		return Macierz(_iloscRzedow, _iloscKolumn);
 	}
 	if (n == 1)
 	{
-		return *this ;
+		return *this;
 	}
 	return Poteguj(n - 1) * *this;
+}
+
+Macierz Macierz::StworzDopelnienie(int wiersz, int kolumna)
+{
+	Macierz tmp(_iloscRzedow - 1, _iloscKolumn - 1);
+	int tmp_k = 0;
+	int tmp_w = 0;
+	for (int w = 0; w < _iloscRzedow; w++)
+	{
+		tmp_k = 0;
+		for (int k = 0; k < _iloscKolumn; k++)
+		{
+			if (w == wiersz || k == kolumna)
+			{
+				continue;
+			}
+			tmp._zasob[tmp_w][tmp_k] = _zasob[w][k];
+			tmp_k++;
+		}
+		if (w != wiersz)
+		{
+			tmp_w++;
+		}
+	}
+	return tmp;
+}
+
+int Macierz::ObliczWyznacznik()
+{
+	int stopien = _iloscKolumn;
+	double wyzn = 0;
+	if (stopien == 1)
+	{
+		return _zasob[0][0];
+	}
+	for (int w = 0; w < _iloscRzedow ; w++)
+	{
+		wyzn += this->StworzDopelnienie(w, 0).ObliczWyznacznik() * (_zasob[w][0] * pow(-1, w + 0));
+	}
+	return wyzn;
 }
 
 Macierz Macierz::operator^(const int n)
@@ -196,7 +235,7 @@ Macierz Macierz::OdejmijMacierz(const Macierz& macierzB)
 	if (macierzB._iloscKolumn != _iloscKolumn || macierzB._iloscRzedow != _iloscRzedow)
 	{
 		cout << "Operacja niemo¿liwa do zrealizowania, rozmiary nie sa identyczne." << endl;
-		return Macierz(_iloscRzedow,_iloscKolumn);
+		return Macierz(_iloscRzedow, _iloscKolumn);
 	}
 	for (int c = 0; c < tmp._iloscRzedow; c++)
 	{
@@ -291,7 +330,7 @@ Macierz::Macierz(const string input)
 	this->MacierzFromString(input);
 }
 
-Macierz operator*(const int& lhs,  Macierz& rhs)
+Macierz operator*(const int& lhs, Macierz& rhs)
 {
 	return rhs * lhs;
 }

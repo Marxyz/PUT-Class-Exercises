@@ -15,10 +15,11 @@ class Macierz
 	Macierz PomnozMacierz(const Macierz& macierzB);
 	void MacierzFromString(string input);
 	Macierz Poteguj(const int n);
+	
 
 public:
-
-	
+	Macierz StworzDopelnienie(int wiersz, int kolumna);
+	int ObliczWyznacznik();
 	Macierz operator^(const int n);
 	Macierz operator+(const Macierz& macierzB);
 	Macierz operator-(const Macierz& macierzB);

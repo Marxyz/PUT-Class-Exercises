@@ -1,16 +1,11 @@
 
 #include "Macierz.h"
-
+#include <iostream>
 
 
 int main(int argc, char* argv[])
 {
-	Macierz test("-1,-2,;-3,-1,;-1,2,;");
-	Macierz test2("0,3,2,;-2,-1,-4,;");
-	auto r = test2 * test;
-	r.Wyswietl();
-	auto res = 2 * test2 * 2 * test;
-	res.Wyswietl();
-	auto res3 = res ^ 2;
-	res3.Wyswietl();
+	Macierz test("-3,2,1,4,;2,3,0,1,;1,2,3,2,;1,1,1,1,;");
+	test.StworzDopelnienie(1,2).Wyswietl();
+	cout << "Wyznacznik: " << test.ObliczWyznacznik() << endl;
 }
