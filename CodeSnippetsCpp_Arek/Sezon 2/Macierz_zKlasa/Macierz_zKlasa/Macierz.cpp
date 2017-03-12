@@ -1,7 +1,7 @@
 #include "Macierz.h"
 #include <iostream>
 #include <string>
-#include <algorithm>;
+#include <algorithm>
 using namespace std;
 
 string ReplaceString(string subject, const string& search,
@@ -147,10 +147,6 @@ Macierz Macierz::StworzDopelnienie(int wiersz, int kolumna)
 	return tmp;
 }
 
-Macierz Macierz::Podziel(Macierz& macierzB)
-{
-	return *this * macierzB.StworzMacierzTransponowana();
-}
 
 Macierz Macierz::StworzMacierzOdwrotna()
 {
@@ -225,13 +221,9 @@ Macierz Macierz::operator*(const double skalar)
 	return this->PomnozMacierz(skalar);
 }
 
-Macierz Macierz::operator/(Macierz& macierzB)
-{
-	return this->Podziel(macierzB);
-}
 
 
-string Macierz::ToString()
+const string Macierz::ToString()
 {
 	string result;
 	for (auto itr = _zasob.begin(); itr != _zasob.end(); ++itr)
@@ -242,7 +234,8 @@ string Macierz::ToString()
 		}
 		result += ';';
 	}
-	return result;
+	const string res = result;
+	return res;
 }
 
 Macierz Macierz::PomnozMacierz(const Macierz& macierzB)
@@ -291,71 +284,6 @@ Macierz Macierz::OdejmijMacierz(const Macierz& macierzB)
 }
 
 
-void Macierz::PobierzMacierz()
-{
-	do
-	{
-		cout << "Podaj wysokosc macierzy: " << endl;
-		cin >> _iloscRzedow;
-		if (cin.fail())
-		{
-			cin.clear(cin.goodbit);
-			cin.ignore(20, '\n');
-			continue;
-		}
-		break;
-
-	} while (true);
-	do
-	{
-		cout << "Podaj szerokosc macierzy: " << endl;
-		cin >> _iloscKolumn;
-
-		if (cin.fail())
-		{
-			cin.clear(cin.goodbit);
-			cin.ignore(20, '\n');
-			continue;
-		}
-		break;
-	} while (true);
-
-	UstawRozmiarWypelnZerem(_iloscRzedow, _iloscKolumn);
-
-	for (int c = 0; c < _iloscRzedow; c++)
-	{
-		for (int r = 0; r < _iloscKolumn; r++)
-		{
-			do
-			{
-				cout << "Podaj wartosc " + to_string(c) + " kolumny i " + to_string(r) + " rzedu: " << endl;
-				cin >> _zasob[c][r];
-
-				if (cin.fail())
-				{
-					cin.clear(cin.goodbit);
-					cin.ignore(20, '\n');
-					continue;
-				}
-				break;
-			} while (true);
-		}
-	}
-
-
-}
-
-void Macierz::Wyswietl()
-{
-	for (auto itr = _zasob.begin(); itr != _zasob.end(); ++itr)
-	{
-		for (auto itr2 = itr->begin(); itr2 != itr->end(); ++itr2)
-		{
-			cout << *itr2 << " ";
-		}
-		cout << endl;
-	}
-}
 
 Macierz::Macierz() : _iloscKolumn(1), _iloscRzedow(1)
 {
@@ -377,3 +305,70 @@ Macierz operator*(const double& lhs, Macierz& rhs)
 	return rhs * lhs;
 }
 
+ostream& operator<<(ostream& strumien,Macierz&m)
+{
+	for (auto itr = m._zasob.begin(); itr != m._zasob.end(); ++itr)
+	{
+		for (auto itr2 = itr->begin(); itr2 != itr->end(); ++itr2)
+		{
+			strumien << *itr2 << " ";
+		}
+		strumien << endl;
+	}
+	return strumien;
+}
+
+istream& operator>>(istream& strumien, Macierz& m)
+{
+
+	do
+	{
+		cout << "Podaj wysokosc macierzy: " << endl;
+		strumien >> m._iloscRzedow;
+		if (strumien.fail())
+		{
+			strumien.clear(cin.goodbit);
+			strumien.ignore(20, '\n');
+			continue;
+		}
+		break;
+
+	} while (true);
+	do
+	{
+		cout << "Podaj szerokosc macierzy: " << endl;
+		strumien >> m._iloscKolumn;
+
+		if (strumien.fail())
+		{
+			strumien.clear(strumien.goodbit);
+			strumien.ignore(20, '\n');
+			continue;
+		}
+		break;
+	} while (true);
+
+	m.UstawRozmiarWypelnZerem(m._iloscRzedow, m._iloscKolumn);
+
+	for (int c = 0; c < m._iloscRzedow; c++)
+	{
+		for (int r = 0; r < m._iloscKolumn; r++)
+		{
+			do
+			{
+				cout << "Podaj wartosc " + to_string(c) + " kolumny i " + to_string(r) + " rzedu: " << endl;
+				strumien >> m._zasob[c][r];
+
+				if (strumien.fail())
+				{
+					strumien.clear(strumien.goodbit);
+					strumien.ignore(20, '\n');
+					continue;
+				}
+				break;
+			} while (true);
+		}
+	}
+	cout << m;
+	return strumien;
+}
