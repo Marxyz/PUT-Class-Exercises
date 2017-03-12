@@ -16,6 +16,7 @@ class Macierz
 	void MacierzFromString(string input);
 	Macierz Poteguj(const int n);
 	Macierz StworzDopelnienie(int wiersz, int kolumna);
+
 public:
 
 	Macierz operator ^ (const int n);
