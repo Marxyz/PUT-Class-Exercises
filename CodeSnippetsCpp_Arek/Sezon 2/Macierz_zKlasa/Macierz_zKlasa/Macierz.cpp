@@ -221,6 +221,10 @@ Macierz Macierz::operator*(const double skalar)
 	return this->PomnozMacierz(skalar);
 }
 
+Macierz Macierz::operator/(Macierz& macierzB)
+{
+	return *this *macierzB.StworzMacierzOdwrotna();
+}
 
 
 const string Macierz::ToString()
