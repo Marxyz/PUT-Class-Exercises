@@ -1,11 +1,147 @@
 #include <iostream>
-
 #define NDEBUG
 #include <GL/freeglut.h>
-#include "Prostokat.h"
 #include <vector>
 #include <ctime>
+
 using namespace std;
+
+/*class Prostokat
+{
+
+
+// Globalny prostokat, metody dzialajace nanim
+// Globalny vector<Prostokat> tab; w kotrym po iteracji robi sie draw,
+// wcisniecie klawisza n dodaje nowy prostokat
+// d - usuwanie
+// przesuwanie kazdego z nich
+// globalne current id - numer aktywnego prostokata. tab[current].move();
+// wsad - operujace na aktualnym elemencie
+// +-, zwieksza i zmniejsza current o 1
+
+
+};*/
+
+
+
+class Prostokat
+{
+private:
+	double _dlugosc;
+	double _wysokosc;
+	double _x_sr, _y_sr;
+	double c_r, c_g, c_b;
+	double _speed;
+	double _alpha;
+
+
+
+public:
+
+	void Draw();
+	void Rotate(double dalpha);
+	void MoveTo(int x, int y);
+	void MoveLeft();
+	void MoveRight();
+	void MoveUp();
+	void MoveDown();
+	void SetColor(double r, double g, double b);
+	Prostokat(int dlugosc, int wysokosc, double speed);
+	Prostokat();
+	~Prostokat();
+};
+
+double fRand(double fMin, double fMax)
+{
+	double f = (double)rand() / RAND_MAX;
+	return fMin + f * (fMax - fMin);
+}
+
+void Prostokat::Draw()
+{
+
+	glPushMatrix();
+	// TODO
+	// test functions below (glTranslated, glRotated, glColor3d) - what happens when you change their arguments?
+	// does their order change the result?
+	glTranslated(_x_sr, _y_sr, 0);
+	glRotated(_alpha, 0.0, 0.0, 1.0);
+	glColor3d(c_r, c_g, c_b);
+	glBegin(GL_POLYGON);
+	{
+
+		glVertex3d(-_dlugosc / 2, _wysokosc / 2, 0);
+
+		glVertex3d(_dlugosc / 2, _wysokosc / 2, 0);
+
+		glVertex3d(_dlugosc / 2, -_wysokosc / 2, 0);
+
+		glVertex3d(-_dlugosc / 2, -_wysokosc / 2, 0);
+	}
+	glEnd();
+	glPopMatrix();
+}
+
+void Prostokat::Rotate(double dalpha)
+{
+	_alpha += dalpha;
+	if (_alpha > 360)
+	{
+		_alpha = 0;
+	}
+}
+
+void Prostokat::MoveTo(int x, int y)
+{
+
+}
+
+void Prostokat::MoveLeft()
+{
+	this->_x_sr -= _speed;
+}
+
+void Prostokat::MoveRight()
+{
+	this->_x_sr += _speed;
+}
+
+void Prostokat::MoveUp()
+{
+	this->_y_sr += _speed;
+}
+
+void Prostokat::MoveDown()
+{
+	this->_y_sr -= _speed;
+}
+
+
+void Prostokat::SetColor(double r, double g, double b)
+{
+	this->c_r = r;
+	this->c_g = g;
+	this->c_b = b;
+}
+
+Prostokat::Prostokat(int dlugosc, int wysokosc, double speed) : _dlugosc(dlugosc), _wysokosc(wysokosc), _x_sr(0), _y_sr(0), _speed(speed), _alpha(0)
+{
+	this->c_r = fRand(0, 1);
+	this->c_g = fRand(0, 1);
+	this->c_b = fRand(0, 1);
+
+}
+
+Prostokat::Prostokat()
+{
+
+}
+
+
+Prostokat::~Prostokat()
+{
+}
+
 
 
 

@@ -10,7 +10,7 @@
     <Grid Background="HotPink">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <local:Clock Foreground="White" RimForeground="White" RimBackground="HotPink"></local:Clock>
-            <TextBlock Text="YO" FontSize="50" Foreground="White" TextAlignment="Center"></TextBlock>
+            <TextBlock Text="YOO" FontSize="50" Foreground="White" TextAlignment="Center"></TextBlock>
         </StackPanel>
         
     </Grid>
