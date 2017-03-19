@@ -1,10 +1,14 @@
 #include "Macierz.h"
 
 int main() {
-
+	
+	
 	Macierz a;
 	a.SetMacierz();
-	a.DispMacierz();
+
+	cout << a.Wyznacznik();
+	
+	
 	
 	
 	return 0;

@@ -1,4 +1,52 @@
-#include "Macierz.h"
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
+class Macierz {
+private:
+	vector<vector<int>> wektor;
+public:
+	Macierz();
+	Macierz(int a, int b);
+	Macierz(Macierz &M);
+
+	void SetMacierz();
+	void DispMacierz();
+	void Zerowa();
+	void Jedynkowa();
+	Macierz Dopelnienie(int x, int y);
+	int Wyznacznik();
+
+
+	Macierz operator+(const Macierz &M);
+	Macierz operator*(const Macierz &M)const;
+	Macierz operator*(int x)const;
+	Macierz operator=(Macierz &M);
+
+
+	friend istream& operator >> (istream &stream, Macierz&M);
+	friend ostream& operator <<(ostream &stream, const Macierz &M);
+};
+
+Macierz operator*(int x, const Macierz&M);
+
+int main() {
+
+
+	Macierz a;
+	a.SetMacierz();
+
+	cout << a.Wyznacznik();
+
+
+
+
+	return 0;
+}
+
 
 Macierz::Macierz()
 {
@@ -22,9 +70,9 @@ Macierz::Macierz(Macierz & M)
 
 void Macierz::SetMacierz()
 {
-	int a,b;
+	int a, b;
 	cout << "Podaj wymiary macierzy." << endl;
-	cin >> a>> b;
+	cin >> a >> b;
 	wektor.resize(a);
 	for (int i = 0; i < a; i++) {
 		wektor[i].resize(b);
@@ -32,7 +80,7 @@ void Macierz::SetMacierz()
 	cout << "Wypelnij macierz." << endl;
 	for (int i = 0; i < a; i++) {
 		for (int j = 0; j < b; j++) {
-			cin>>wektor[i][j];
+			cin >> wektor[i][j];
 		}
 	}
 }
@@ -41,7 +89,7 @@ void Macierz::DispMacierz()
 {
 	for (int i = 0; i < wektor.size(); i++) {
 		for (int j = 0; j < wektor[i].size(); j++) {
-			cout<<wektor[i][j] <<'\t';
+			cout << wektor[i][j] << '\t';
 		}
 		cout << endl;
 	}
@@ -70,9 +118,9 @@ Macierz Macierz::Dopelnienie(int x, int y)
 {
 	int a = this->wektor.size();
 	int b = this->wektor[0].size();
-	Macierz tmp(a-1,b-1);
-	int wartW=0;
-	int wartKol=0;
+	Macierz tmp(a - 1, b - 1);
+	int wartW = 0;
+	int wartKol = 0;
 	for (int i = 0; i < a - 1;i++) {
 		if (i >= x) wartW = 1;
 		for (int j = 0; j < b - 1; j++) {
@@ -91,21 +139,21 @@ int Macierz::Wyznacznik()
 	if (n == 1) return this->wektor[0][0];
 	else {
 		for (int i = 0; i < this->wektor.size(); i++) {
-			 det += this->wektor[i][0]*pow(-1, i)*this->Dopelnienie(i, 0).Wyznacznik();
+			det += this->wektor[i][0] * pow(-1, i)*this->Dopelnienie(i, 0).Wyznacznik();
 		}
 		return det;
 	}
-	
+
 }
 
 Macierz Macierz::operator+(const Macierz & M)
 {
-	
+
 	if (this->wektor.size() == M.wektor.size() && this->wektor[0].size() == M.wektor[0].size()) {
 		Macierz tmp(M.wektor.size(), M.wektor[0].size());
 		/*tmp.wektor.resize(M.wektor.size());
 		for (int i = 0; i < M.wektor.size(); i++) {
-			tmp.wektor[i].resize(M.wektor[i].size());
+		tmp.wektor[i].resize(M.wektor[i].size());
 		}*/
 		for (int i = 0; i < wektor.size(); i++) {
 			for (int j = 0; j < wektor[0].size(); j++) {
@@ -117,7 +165,7 @@ Macierz Macierz::operator+(const Macierz & M)
 	else {
 		cout << "Operacja niemozliwa.";
 	}
-	
+
 }
 
 Macierz Macierz::operator*(const Macierz & M)const
@@ -126,7 +174,7 @@ Macierz Macierz::operator*(const Macierz & M)const
 		Macierz tmp(this->wektor.size(), M.wektor[0].size());
 		/*tmp.wektor.resize(this->wektor.size());
 		for (int i = 0; i < tmp.wektor.size(); i++) {
-			tmp.wektor[i].resize(M.wektor[0].size());
+		tmp.wektor[i].resize(M.wektor[0].size());
 		}*/
 		for (int i = 0; i < tmp.wektor.size(); i++) {
 			for (int j = 0; j < tmp.wektor[0].size(); j++) {
@@ -144,7 +192,7 @@ Macierz Macierz::operator*(int x) const
 	Macierz tmp(this->wektor.size(), this->wektor[0].size());
 	/*tmp.wektor.resize(this->wektor.size());
 	for (int i = 0; i < tmp.wektor.size(); i++) {
-		tmp.wektor[i].resize(this->wektor[i].size());
+	tmp.wektor[i].resize(this->wektor[i].size());
 	}*/
 	for (int i = 0; i < tmp.wektor.size(); i++) {
 		for (int j = 0; j < tmp.wektor[0].size();j++) {
