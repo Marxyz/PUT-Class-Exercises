@@ -53,7 +53,13 @@ void idle()
 
 	if (Zbior_prostokatow.size() > 0)
 	{
-		Zbior_prostokatow[actual].Rotate(0.01);
+		for (int i = 0; i < Zbior_prostokatow.size(); i++)
+		{
+			if (i!= actual)
+			{
+				Zbior_prostokatow[i].Rotate(0.05);
+			}
+		}
 	}
 	glutPostRedisplay();
 }
