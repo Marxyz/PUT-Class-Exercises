@@ -11,8 +11,8 @@
 
     <Grid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Canvas Height="250" Width="250" Name="Display" Background="{Binding Background, ElementName=userControl}" ></Canvas>
-            <TextBlock Margin="10" TextAlignment="Center" FontSize="20" Name="ClockTextBlock" Text=""></TextBlock>
+            <Canvas Height="350" Width="350" Name="Display" Background="{Binding Background, ElementName=userControl}" ></Canvas>
+            <TextBlock Margin="10" TextAlignment="Center" Name="ClockTextBlock" Text=""></TextBlock>
         </StackPanel>
     </Grid>
 </UserControl>

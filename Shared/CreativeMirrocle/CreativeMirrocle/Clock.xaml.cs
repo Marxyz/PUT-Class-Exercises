@@ -57,6 +57,7 @@ namespace CreativeMirrocle
         public bool ShowMinutes { get { return showMinutes; } set { showMinutes = value; } }
         public bool ShowHours { get { return showHours; } set { showHours = value; } }
         public DateTime Time { get; set; }
+        public int fontSize { get; set; }
 
 
         private Rectangle Hand(double width, double height, double radiusX, double radiusY, double thickness)
@@ -184,6 +185,7 @@ namespace CreativeMirrocle
         {
             Layout(ref Display);
             timer.Interval = TimeSpan.FromSeconds(1);
+            ClockTextBlock.FontSize = fontSize;
             timer.Tick += (object sender, object e) =>
             {
                 ClockTextBlock.Text = string.Format("{0}:{1}", Time.Hour, Time.Minute);
@@ -215,6 +217,8 @@ namespace CreativeMirrocle
                 Layout(ref Display);
             }
         }
+
+        
 
         public bool Enabled
         {
