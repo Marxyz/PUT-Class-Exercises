@@ -16,7 +16,7 @@
         
         
         <StackPanel  Margin="30" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <local:Clock fontSize="29" Foreground="White" RimForeground="White" RimBackground="HotPink"></local:Clock>
+            <local:Clock Foreground="White" RimForeground="White" RimBackground="HotPink"></local:Clock>
         </StackPanel>
 
         <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1" Text="ELDOKA NA WOLNO, MASZ TU PRZED SOBA MOJA MYSL UWOLNIONA" TextWrapping="WrapWholeWords" VerticalAlignment="Center" TextAlignment="Center" FontSize="64" Foreground="AliceBlue"></TextBlock>
