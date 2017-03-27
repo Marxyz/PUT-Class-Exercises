@@ -4,6 +4,7 @@
 #include <vector>
 #include <ctime>
 #include "Prostokat.h"
+#include "Scena.h"
 
 using namespace std;
 
@@ -62,7 +63,7 @@ void DodajProstokat(vector<Prostokat> &zbior_prostokatow)
 }
 
 /* GLUT callback Handlers */
-void resize(int width, int height)
+/*void resize(int width, int height)
 {
 	const float ar = (float)width / (float)height; //aspectratio
 
@@ -81,7 +82,7 @@ void resize(int width, int height)
 void idle()
 {
 
-	if (Zbior_prostokatow.size() > 0)
+/*	if (Zbior_prostokatow.size() > 0)
 	{
 		for (int i = 0; i < Zbior_prostokatow.size(); i++)
 		{
@@ -90,9 +91,12 @@ void idle()
 				Zbior_prostokatow[i].Rotate(0.05);
 			}
 		}
-	}
+	}#1#
+
+
+
 	glutPostRedisplay();
-}
+}*/
 
 void DrawRectangle(double width, double height)
 {
@@ -106,20 +110,20 @@ void display()
 	// clear the scene
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if (Zbior_prostokatow.size() > 0)
+	/*if (Zbior_prostokatow.size() > 0)
 	{
 		for (auto itr = Zbior_prostokatow.begin(); itr != Zbior_prostokatow.end(); ++itr)
 		{
 			itr->Draw();
 		}
-	}
+	}*/
 
 	glPushMatrix();
 	glPopMatrix();
 
 	glutSwapBuffers();
 }
-
+/*
 void InitGLUTScene(char* window_name)
 {
 	glutInitWindowSize(800, 600);
@@ -137,9 +141,9 @@ void InitGLUTScene(char* window_name)
 	glEnable(GL_LIGHT0);
 	glEnable(GL_NORMALIZE);
 	glEnable(GL_COLOR_MATERIAL);
-}
+}*/
 
-
+/*
 void FunkcjaDoObslugiKlawiatury(unsigned char key, int mouse_x, int mouse_y)
 {
 	std::cout << "Naciœniêto klawisz: " << key << ", a myszka znajduje siê w pozycji: " << mouse_x << ", " << mouse_y << "(w pikselach)" << std::endl;
@@ -207,15 +211,38 @@ void FunkcjaDoObslugiKlawiatury(unsigned char key, int mouse_x, int mouse_y)
 		}
 		}
 	}
-}
+}*/
+
+Scena scena;
+
+/*
+ * kilka robotwo na ekranie i manipulacja nimi
+ * uczenie robota
+ * cRobot -> Zapamietaj();
+ * pamietanei polega na zapamietaniu ze wszystkich wezlwo katow alfa, (vector<vector<double>> trjaketorai gdzei po wcisnieciu zapamietane zostana paramtery
+ * animacja start
+ * co pewien czas beda kolejen pozycje z tablicy pozycji;
+ * aktualizuj(int czas);
+ * w funkcji idle int czas = getTickCount();
+ * (45 - 90) /1000 * (czas - t0)
+ */
+
+
+/*
 void SetCallbackFunctions()
 {
 	// glut timer func
 	// Tu robi main window loop
-	glutReshapeFunc(resize);
+	glutReshapeFunc(scena.ResizeFunctions());
 	glutDisplayFunc(display);
 	glutIdleFunc(idle);
-	glutKeyboardFunc(FunkcjaDoObslugiKlawiatury);
+	glutKeyboardFunc(FunkcjaDoObslugiKlawiatury);#1#
+}
+*/
+
+void SetCallBackFunctions()
+{
+	glutReshapeFunc(scena.ResizeFunctions);
 }
 
 int main(int argc, char *argv[])

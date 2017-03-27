@@ -28,13 +28,13 @@
     <AppXManifest Include="C:\Users\User\Documents\Repositories\Shared\CreativeMirrocle\CreativeMirrocle\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2017-03-19T23:44:52.700</Modified>
+      <Modified>2017-03-24T11:18:11.646</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\User\Documents\Repositories\Shared\CreativeMirrocle\CreativeMirrocle\bin\x86\Debug\CreativeMirrocle.exe">
       <PackagePath>entrypoint\CreativeMirrocle.exe</PackagePath>
-      <Modified>2017-03-19T23:44:50.829</Modified>
+      <Modified>2017-03-24T11:18:09.352</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\User\.nuget\packages\Microsoft.CSharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -532,7 +532,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\User\Documents\Repositories\Shared\CreativeMirrocle\CreativeMirrocle\bin\x86\Debug\CreativeMirrocle.xr.xml">
       <PackagePath>CreativeMirrocle.xr.xml</PackagePath>
-      <Modified>2017-03-19T23:44:50.597</Modified>
+      <Modified>2017-03-24T11:18:08.880</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -541,11 +541,11 @@
     <AppxPackagedFile Include="C:\Users\User\Documents\Repositories\Shared\CreativeMirrocle\CreativeMirrocle\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2017-03-19T23:44:52.374</Modified>
+      <Modified>2017-03-24T11:18:11.084</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\User\Documents\Repositories\Shared\CreativeMirrocle\CreativeMirrocle\bin\x86\Debug\Core\CreativeMirrocle.exe">
       <PackagePath>CreativeMirrocle.exe</PackagePath>
-      <Modified>2017-03-19T23:44:52.691</Modified>
+      <Modified>2017-03-24T11:18:11.629</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

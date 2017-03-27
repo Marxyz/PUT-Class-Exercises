@@ -8,10 +8,19 @@
     mc:Ignorable="d">
 
     <Grid Background="HotPink">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="0.7*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        
+        <StackPanel  Margin="30" HorizontalAlignment="Left" VerticalAlignment="Top">
             <local:Clock Foreground="White" RimForeground="White" RimBackground="HotPink"></local:Clock>
-            <TextBlock Text="YOO" FontSize="50" Foreground="White" TextAlignment="Center"></TextBlock>
         </StackPanel>
+
+        <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1" Text="ELDOKA NA WOLNO, MASZ TU PRZED SOBA MOJA MYSL UWOLNIONA" TextWrapping="WrapWholeWords" VerticalAlignment="Center" TextAlignment="Center" FontSize="64" Foreground="AliceBlue"></TextBlock>
+        
         
     </Grid>
 </Page>
