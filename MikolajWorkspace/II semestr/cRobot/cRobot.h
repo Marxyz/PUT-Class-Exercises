@@ -16,6 +16,7 @@ public:
 	cRobot();
 	cRobot(float a, float b);
 	void SetAutomove();
+	void SetMapWsk();
 
 	float GetPlatformX();
 	float GetPlatformY();

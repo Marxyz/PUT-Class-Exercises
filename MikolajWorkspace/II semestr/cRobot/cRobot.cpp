@@ -33,6 +33,11 @@ void cRobot::SetAutomove()
 	automove = !tmp;
 }
 
+void cRobot::SetMapWsk()
+{
+	mapWsk = 1;
+}
+
 float cRobot::GetPlatformX()
 {
 	return platform.GetX();
@@ -60,6 +65,7 @@ void cRobot::Draw()
 void cRobot::Move(float a, float b)
 {
 	platform.Move(a, b);
+	beginTime = GetTickCount();
 }
 
 void cRobot::MoveTo(float a, float b)
@@ -150,13 +156,17 @@ void cRobot::Update(int time)
 	if(automove == true)
 	{
 		if (mapWsk < map.size()) {
+			
+			//wskazniki stanu, pokazujace czy dalej poruszac/obracac robota
 			bool wskX = false;
 			bool wskY = false;
 			bool wskAlpha = false;
+			
 			int deltaTime = time - beginTime;
 			float deltaAlpha = (map[mapWsk][2] - map[mapWsk - 1][2])* deltaTime / 1000;
 			float deltaX = (map[mapWsk][0] - map[mapWsk - 1][0]) * deltaTime / 1000;
 			float deltaY = (map[mapWsk][1] - map[mapWsk - 1][1]) * deltaTime / 1000;
+			
 			beginTime += deltaTime;
 			if(deltaX >0.1 )
 			{
@@ -168,17 +178,18 @@ void cRobot::Update(int time)
 			{
 				deltaY = 0.0;
 			}
-			std::cout << time << " " << beginTime << " " << deltaX << " " << deltaY << " " << deltaAlpha << " " << deltaTime << std::endl;
 			
-			if((int)(map[mapWsk][0]*100)==(int)(platform.GetX()))
+			
+			
+			 if((int)(map[mapWsk][0]*100)==(int)(platform.GetX() * 100))
 			{
 				wskX = true;
 			}
-			if((int)(map[mapWsk][1] * 100) == (int)(platform.GetY()))
+			if((int)(map[mapWsk][1] * 100) == (int)(platform.GetY() * 100))
 			{
 				wskY = true;
 			}
-			if((int)(map[mapWsk][1] * 100) == (int)(platform.GetY()))
+			if((int)(map[mapWsk][2]) == (int)(platform.GetAlpha()))
 			{
 				wskAlpha = true;
 			}
@@ -188,13 +199,21 @@ void cRobot::Update(int time)
 				mapWsk++;
 			}
 
-			if (wskX == false && wskY == false) platform.Move(deltaX, deltaY);
+			if (wskX == false && wskY == false) {
+				platform.Move(deltaX, deltaY);
+				//std::cout<<platform.GetX()<<" "<< (int)(map[mapWsk][0]*100)
+			}
 			if (wskX == false && wskY == true) platform.Move(deltaX, 0.0);
 			if (wskX == true && wskY == false) platform.Move(0.0, deltaY);
-			if(wskAlpha == false) platform.Rotate(deltaAlpha);
-
+			//if(wskAlpha == false) platform.Rotate(deltaAlpha);
+			if (wskX == true && wskY == true && wskAlpha == false) {
+				std::cout << (int)(map[mapWsk][2]) << " " << (int)(platform.GetAlpha()) << std::endl;
+				platform.Rotate(deltaAlpha);
+			}
+			
 			
 		}
+		//
 			
 	}
 	//std::cout << beginTime << " "<<time<<std::endl;

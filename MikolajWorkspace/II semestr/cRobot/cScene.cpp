@@ -23,7 +23,6 @@ void Idle()
 	scena.UpdateRobot(time);
 	glutPostRedisplay();
 	
-	//Sleep(1000);
 	
 
 
@@ -146,15 +145,14 @@ void cScene::Keyboard(unsigned char key, int x, int y)
 		robot.RotateSegment(-5);
 		break;
 	}
-	case 'x':
+	case 'x': 
 		{
 		robot.SavePosition();
-		//robot.AutoMove();
 		break;
 		}
-	case 'm': //DZIE DZIALA TAK JAK POWINNO
+	case 'm': //wlacza/wylacza tryb automove
 	{
-		//robot.SavePosition();
+		robot.SetMapWsk();
 		robot.MoveTo(0.0, 0.0);
 		robot.RotateTo(0.0);
 		robot.SetAutomove();

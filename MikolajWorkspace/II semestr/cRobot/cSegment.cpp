@@ -71,6 +71,11 @@ void cSegment::Draw()
 void cSegment::Rotate(float alpha)
 {
 	this->alpha += alpha;
+	if(this->alpha >360)
+	{
+		//float tmp = this->alpha;
+		this->alpha = (int)this->alpha%360;
+	}
 }
 
 void cSegment::RotateTo(float alpha)
