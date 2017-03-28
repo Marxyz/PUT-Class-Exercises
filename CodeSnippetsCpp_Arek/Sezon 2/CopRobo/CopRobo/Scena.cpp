@@ -13,12 +13,15 @@ void idle()
 }
 void Scena::Idle()
 {
-	if (scena._aktualizuj)
+	if (scena.CzyZaktualizowane == false)
 	{
-
-		Zbior_robotow[actual].Aktualizuj(scena._czasIdle);
-		glutPostRedisplay();
+		Zbior_robotow[actual].Aktualizuj(3000);
+		if (Zbior_robotow[actual].Zaktualizowane)
+		{
+			scena.CzyZaktualizowane = true;
+		}
 	}
+	glutPostRedisplay();
 }
 
 using namespace std;
@@ -27,6 +30,7 @@ Scena scena; //globalny obiekt sceny
 
 void przerysuj() //pomocnicza funkcja callback
 {
+	
 	scena.Rysuj();
 }
 
@@ -44,7 +48,7 @@ void Scena::Rysuj() {
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glPushMatrix();
-	Zbior_robotow[0].RysujCalosc();
+	Zbior_robotow[actual].RysujCalosc();
 	glPopMatrix();
 	glutSwapBuffers();
 }
@@ -93,11 +97,6 @@ void Scena::Klawisz(unsigned char key, int x, int y) {
 			Zbior_robotow[actual].ObrocAktywnySegment(5);
 			break;
 		}
-		case 'x':
-		{
-			Zbior_robotow[actual].ObrocAktywnySegment(-5);
-			break;
-		}
 		case 'n':
 		{
 			Zbior_robotow[actual].DodajSegment();
@@ -115,7 +114,13 @@ void Scena::Klawisz(unsigned char key, int x, int y) {
 		}
 		case 'p':
 		{
-			scena._aktualizuj = true;
+			if (Zbior_robotow[actual].ZwrocRozmiarWew() != 0)
+			{
+
+				Zbior_robotow[actual].ZapiszKatyPoczatkowe();
+				scena.CzyZaktualizowane = false;
+			}
+			break;
 		}
 		}
 	}
@@ -144,8 +149,8 @@ void Scena::Inicjuj() {
 	srand(time(nullptr));
 	Robot rbt;
 	SegmentRobota srbt;
-	SegmentRobota srbt2(15);
-	SegmentRobota srbt3(30);
+	SegmentRobota srbt2;
+	SegmentRobota srbt3;
 
 
 	rbt.DodajSegment(srbt);
@@ -159,14 +164,11 @@ void Scena::Inicjuj() {
 	glutInitWindowSize(800, 600);
 	glutCreateWindow("Przykladowy program");
 	glClearColor(0, 1, 0.5, 1);
-	double czas_p, czas_k;
-	czas_p = GetTickCount();
+	glutIdleFunc(idle);
 	glutDisplayFunc(przerysuj);
-	czas_k = GetTickCount();
-	scena._czasIdle = czas_k - czas_p;
 	glutReshapeFunc(resize);
 	glutKeyboardFunc(klawisz);
-	glutIdleFunc(idle);
+
 
 }
 
@@ -185,20 +187,3 @@ void Scena::Resize(int width, int height)
 	glLoadIdentity();
 }
 
-void Scena::DodajProstokat()
-{
-	double dlugosc, wysokosc, predkosc;
-	cout << "Podaj dlugosc: " << endl;
-	cin >> dlugosc;
-	cout << "Podaj wysokosc: " << endl;
-	cin >> wysokosc;
-	cout << "Podaj predkosc: " << endl;
-	cin >> predkosc;
-	Prostokat tmp(dlugosc, wysokosc, predkosc);
-	Zbior_prostokatow.push_back(tmp);
-}
-
-void Scena::UsunProstokat()
-{
-	Zbior_prostokatow.erase(Zbior_prostokatow.begin() + actual);
-}
