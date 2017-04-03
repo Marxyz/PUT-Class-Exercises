@@ -9,22 +9,25 @@ class Robot
 	double _x_glowne;
 	double _y_glowne;
 
-	int _iterZapisu = 0;
-	int _iterAktualizacji = 0;
-	double _xAktualizacji = 0;
-	double _yAktualizacji = 0;
-
+	int _iterZapisu;
 	int _aktywnySegment;
+
 	double _r, _g, _b; // Kolor
 	double _szerokoscBazy, _wysokoscBazy;
 	std::vector<std::vector<double>> _wewnetrznaMacierzKatow;
 
+	int CzyWyrownanyRzad(int rzad);
+	int KtoryRzadMacierzy();
+	int KtorySegmentZRzedu(int rzad);
 public:
 	
+	int ZwrocRozmiarWew();
+	bool Zaktualizowane;
+	void ZapiszKatyPoczatkowe();
 	void Aktualizuj(double czas);
-	bool CzyZaktualizowane();
 	void ZapamietajPunkt();
 
+	void PosprzatajPoAktual();
 	int Rozmiar();
 
 	void ZniszczSegment();
