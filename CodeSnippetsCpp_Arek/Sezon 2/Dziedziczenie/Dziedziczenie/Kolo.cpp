@@ -6,6 +6,7 @@
 
 Kolo::Kolo(double radius, double speed) :Figura(speed), _radius(radius)
 {
+	this->setGeometria(_x, _y, -radius / 2, -radius / 2, -radius / 2, -radius / 2);
 }
 
 void Kolo::Draw()

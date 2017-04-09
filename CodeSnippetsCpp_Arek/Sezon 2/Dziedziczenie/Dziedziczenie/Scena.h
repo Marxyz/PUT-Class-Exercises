@@ -18,6 +18,8 @@ public:
 	void Inicjuj();
 	void Mysz(int button, int state, int x, int y);
 	void Resize(int width, int height);
+	void Aktualizuj();
+
 
 	int actual;
 	double _xmin,_ymin,_xmax,_ymax;
@@ -29,6 +31,6 @@ private:
 
 	void DodajProstokat();
 	void UsunProstokat();
-	vector<Figura*> Zbior_Figur;
+	vector<Figura*> Zbior_Obiektow;
 };
 extern Scena scena;

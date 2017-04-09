@@ -28,11 +28,12 @@ Trojkat::Trojkat() : Figura(0.01), _podstawa(1), _wysokosc(1)
 
 Trojkat::Trojkat(double wysokosc, double podstawa, double speed) : Figura(speed), _podstawa(podstawa), _wysokosc(wysokosc)
 {
+	this->setGeometria(_x, _y, -podstawa/2, -wysokosc/2, podstawa/2, wysokosc/2);
 }
 
 bool Trojkat::czyKliknieta(float x, float y)
 {
-	return abs(x - _x) <= 1.0* _podstawa/ 2 && abs(y - _y) <= 1.0*_wysokosc / 2;
+	return abs(x - x) <= 1.0* _podstawa/ 2 && abs(y - _y) <= 1.0*_wysokosc / 2;
 	
 }
 

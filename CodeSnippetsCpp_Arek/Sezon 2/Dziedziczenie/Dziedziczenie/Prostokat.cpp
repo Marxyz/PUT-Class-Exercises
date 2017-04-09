@@ -8,7 +8,7 @@
 
 bool Prostokat::czyKliknieta(float x, float y)
 {
-	return abs(x - _x) <= 1.0* _dlugosc / 2 && abs(y - _y) <= 1.0*_wysokosc / 2;
+	return abs(x - x) <= 1.0* _dlugosc / 2 && abs(y - _y) <= 1.0*_wysokosc / 2;
 }
 void Prostokat::Draw()
 {
@@ -34,6 +34,7 @@ void Prostokat::Draw()
 
 Prostokat::Prostokat(int dlugosc, int wysokosc, double speed) : Figura(speed), _dlugosc(dlugosc), _wysokosc(wysokosc)
 {
+	this->setGeometria(_x, _y, -dlugosc/2, -wysokosc/2, dlugosc/2, wysokosc/2);
 }
 
 Prostokat::Prostokat() : Figura(0.1), _dlugosc(1), _wysokosc(1)

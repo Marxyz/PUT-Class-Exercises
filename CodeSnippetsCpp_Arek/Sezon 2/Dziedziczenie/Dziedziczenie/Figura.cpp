@@ -40,7 +40,7 @@ void Figura::Rotate(double dalpha)
 	_alpha = int(_alpha) % 360;
 }
 
-Figura::Figura(double speed) :_x(0), _y(0), _alpha(0), _speed(speed)
+Figura::Figura(double speed) : _alpha(0), _speed(speed), CFizyka()
 {
 	SetColor(FRand(0, 1), FRand(0, 1), FRand(0, 1));
 }
