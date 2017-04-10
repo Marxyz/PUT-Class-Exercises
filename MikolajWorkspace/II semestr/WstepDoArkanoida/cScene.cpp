@@ -6,7 +6,7 @@ cScene scena;
 
 void MouseCallback(int button, int state, int x, int y)
 {
-	scena.Mouse(button,state,x,y);
+	scena.Mouse(button, state, x, y);
 }
 
 
@@ -30,6 +30,10 @@ void IdleCallback()
 
 }
 
+void MouseMoveCallback(int x, int y){
+	scena.MouseMove(x,y);
+}
+
 
 cScene::cScene() : active(-1), xmin(-1.0), ymin(-1.0), xmax(1.0), ymax(1.0)
 {
@@ -44,7 +48,7 @@ void cScene::Idle()
 {
 	scena.Aktualizuj();
 	glutPostRedisplay();
-	//Sleep(1);
+	Sleep(11);
 
 }
 
@@ -55,16 +59,21 @@ void cScene::Init()
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH | GLUT_MULTISAMPLE);
 	glutCreateWindow("Rybki w akwarium");
 	glClearColor(1.000, 0.753, 0.796, 1);
-	
+
 	/*glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-1, 1, -1, 1, -.1, .1);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();*/
 
+	cProstokat *paletka = new cProstokat(0, -.6, .2, .1);
+	paletka->setPredkosc(0, 0);
+	paletka->setFizyka(0, 0);
+	obiekty.push_back(paletka);
+	
 	cOkrag *pilka = new cOkrag(0, 0, .1);
 	pilka->setFizyka(8.91*1E-6, -90);
-	pilka->setPredkosc(0, -30);
+	pilka->setPredkosc(4.1*1E-6, 45);
 	obiekty.push_back(pilka);
 
 	cProstokat *podloga = new cProstokat(0, -.8, 1.6, .1);
@@ -82,15 +91,16 @@ void cScene::Init()
 	podloga2->setFizyka(0, 0);
 	obiekty.push_back(podloga2);
 
-	cProstokat *podloga3 = new cProstokat(0, .35, 1.6, .1);
+	/*cProstokat *podloga3 = new cProstokat(0, .35, 1.6, .1);
 	podloga3->setPredkosc(0, 0);
 	podloga3->setFizyka(0, 0);
-	obiekty.push_back(podloga3);
+	obiekty.push_back(podloga3);*/
 
 	glutIdleFunc(IdleCallback);
 	glutDisplayFunc(DrawCallback);
 	glutKeyboardFunc(KeyboardCallback);
 	glutMouseFunc(MouseCallback);
+	glutPassiveMotionFunc(MouseMoveCallback);
 	glutReshapeFunc(ResizeCallback);
 
 }
@@ -128,16 +138,17 @@ void cScene::Aktualizuj()
 {
 	std::cout << obiekty.size() << std::endl;
 	int czas = GetTickCount(); //zwraca czas w [ms]
-	for (int i = 0; i < obiekty.size();i++)
+	for (int i = 0; i < obiekty.size(); i++)
 	{
 		obiekty[i]->Aktualizuj(czas); //obliczanie nowych polozen
 	}						 //wykrywanie kolizji
-	for (int i = 0; i < obiekty.size();i++) {
-		for (int j = i + 1;j < obiekty.size();j++)
+	for (int i = 0; i < obiekty.size(); i++) {
+		for (int j = i + 1; j < obiekty.size(); j++){
 			if (obiekty[i]->Kolizja(*obiekty[j])) //znajduje kolizje
 			{
 				std::cout << "Kolizja" << std::endl;
 			}
+		}
 	}
 }
 
@@ -146,7 +157,7 @@ void cScene::Keyboard(unsigned char key, int x, int y)
 {
 	switch (key) {
 	case 'a': {
-		if(active >=0) obiekty[active]->Move(-0.01, 0.0);
+		if (active >= 0) obiekty[active]->Move(-0.01, 0.0);
 		break;
 	}
 	case 'd': {
@@ -172,7 +183,7 @@ void cScene::Keyboard(unsigned char key, int x, int y)
 		break;
 	}
 	case 'p': {
-		cProstokat *tmp = new cProstokat(.1,.1,.15,.19);
+		cProstokat *tmp = new cProstokat(.1, .1, .15, .19);
 		tmp->setFizyka(8.91*1E-6, 90);
 		tmp->setPredkosc(0, 31);
 		obiekty.push_back(tmp);
@@ -180,23 +191,23 @@ void cScene::Keyboard(unsigned char key, int x, int y)
 		break;
 	}
 	case 'o':
-		{
-		cOkrag *tmp = new cOkrag(.2,.2,.1);
+	{
+		cOkrag *tmp = new cOkrag(.2, .2, .1);
 		tmp->setFizyka(8.91*1E-6, 0);
 		tmp->setPredkosc(0, -71);
 		obiekty.push_back(tmp);
 		active = obiekty.size() - 1;
 		break;
-		}
+	}
 	case 't':
-		{
+	{
 		cTrojkat *tmp = new cTrojkat;
 		tmp->setFizyka(8.91*1E-6, -90);
 		tmp->setPredkosc(0, 45);
 		obiekty.push_back(tmp);
 		active = obiekty.size() - 1;
 		break;
-		}
+	}
 	case 'e': {
 		if (obiekty.size() > 0) {
 			obiekty.erase(obiekty.begin() + active);
@@ -222,8 +233,8 @@ void cScene::Keyboard(unsigned char key, int x, int y)
 
 void cScene::Mouse(int button, int state, int x, int y)
 {
-	
-	
+
+
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 	{
 
@@ -242,6 +253,15 @@ void cScene::Mouse(int button, int state, int x, int y)
 			}
 		}
 	}
-	
 
+
+}
+
+void cScene:: MouseMove(int x, int y){
+	double windowWidth = glutGet(GLUT_WINDOW_WIDTH);
+	double windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
+
+	double xU = xmin + x / windowWidth * (xmax - xmin);
+	//double yU = ymax - y / windowHeight * (ymax - ymin);
+	obiekty[0]->MoveTo(xU, -.7);
 }

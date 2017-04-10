@@ -19,6 +19,7 @@ protected:
 	float alfa_v;//kierunek wektora predkosci w [stopniach]
 	float g; //grawitacja
 	float alfa_g;//kierunek wektora grawitacji
+	bool widoczny;
 
 public:
 	CFizyka();
@@ -36,9 +37,12 @@ public:
 	float odleglosc(float _x, float _y, float _xa, float _ya, float _xb, float _yb);//wyznacza odleglosc od pewnej prostej przechodzacej przez 2 punkty
 	virtual float ZnajdzNormalna(const CFizyka& X);//znajduje normalna boku ktory jest najblizej srodka obiektu (wynikiem funkcji jest orientacja normalnej);
 	void Reset(); //resetuje czas
+	bool ZwracajWidoczny();
 	virtual ~CFizyka();
 
 };
-	
+
+
+
 
 

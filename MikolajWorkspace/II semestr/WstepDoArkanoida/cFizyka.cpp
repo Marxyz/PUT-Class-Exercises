@@ -17,7 +17,12 @@ CFizyka::CFizyka()
 
 	granica.xb = 1.0;
 	granica.yb = 1.0;
+	this->widoczny = 1;
 	Reset();
+}
+bool CFizyka::ZwracajWidoczny()
+{
+	return this->widoczny;
 }
 
 void CFizyka::Odbicie(float alfa_n) //odbicie od sciany charakteryzowanej za pomoca normalnej alfa_n
@@ -80,24 +85,27 @@ int CFizyka::Kolizja(CFizyka& X) //wykrywanie kolizji z innym obiektem (funkcja 
 	//jesli wystepuje kolizja to przynajmniej jeden z wierzcholkow musi zawierac sie wewnatrz
 	//sprawdzenie czy ktorys z wierzcholkow obiektu nie zawiera sie w obiekcie sprawdzanym
 	int kolizja = 0;
-	if (IsInRect(x + granica.xa, y + granica.ya, X) == 1) kolizja = 1;
-	else if (IsInRect(x + granica.xa, y + granica.yb, X) == 1) kolizja = 1;
-	else if (IsInRect(x + granica.xb, y + granica.yb, X) == 1) kolizja = 1;
-	else if (IsInRect(x + granica.xb, y + granica.ya, X) == 1) kolizja = 1;
-	//odworcenie sprawdzania 
-	else if (IsInRect(X.x + X.granica.xa, X.y + X.granica.ya, *this) == 1) kolizja = 1;
-	else if (IsInRect(X.x + X.granica.xa, X.y + X.granica.yb, *this) == 1) kolizja = 1;
-	else if (IsInRect(X.x + X.granica.xb, X.y + X.granica.yb, *this) == 1) kolizja = 1;
-	else if (IsInRect(X.x + X.granica.xb, X.y + X.granica.ya, *this) == 1) kolizja = 1;
-
-	//obsluga kolizji
-	if (kolizja)
+	if (X.widoczny != 0)
 	{
-		//znalezienie boku od ktorego nastapi odbicie
-		float alfa_n = ZnajdzNormalna(X);
-		Odbicie(alfa_n);
-		float kat = (alfa_n>0) ? alfa_n - 180 : alfa_n + 180;
-		X.Odbicie(kat);
+		if (IsInRect(x + granica.xa, y + granica.ya, X) == 1) kolizja = 1;
+		else if (IsInRect(x + granica.xa, y + granica.yb, X) == 1) kolizja = 1;
+		else if (IsInRect(x + granica.xb, y + granica.yb, X) == 1) kolizja = 1;
+		else if (IsInRect(x + granica.xb, y + granica.ya, X) == 1) kolizja = 1;
+		//odworcenie sprawdzania 
+		else if (IsInRect(X.x + X.granica.xa, X.y + X.granica.ya, *this) == 1) kolizja = 1;
+		else if (IsInRect(X.x + X.granica.xa, X.y + X.granica.yb, *this) == 1) kolizja = 1;
+		else if (IsInRect(X.x + X.granica.xb, X.y + X.granica.yb, *this) == 1) kolizja = 1;
+		else if (IsInRect(X.x + X.granica.xb, X.y + X.granica.ya, *this) == 1) kolizja = 1;
+
+		//obsluga kolizji
+		if (kolizja)
+		{
+			//znalezienie boku od ktorego nastapi odbicie
+			float alfa_n = ZnajdzNormalna(X);
+			Odbicie(alfa_n);
+			float kat = (alfa_n > 0) ? alfa_n - 180 : alfa_n + 180;
+			X.Odbicie(kat);
+		}
 	}
 
 	return kolizja;
@@ -137,7 +145,7 @@ float CFizyka::ZnajdzNormalna(const CFizyka& X)//znajduje normalna boku ktory je
 	tab[3] = odleglosc(x, y, X.x + X.granica.xb, X.y + X.granica.ya, X.x + X.granica.xa, X.y + X.granica.ya);
 
 	//poszukiwanie minimalnej wartosci odleglosci
-	for (int i = 1;i<4;i++)
+	for (int i = 1; i<4; i++)
 		if (tab[i]<tab[min_idx]) min_idx = i;
 
 	//wyznaczenie normalnych najblizej lezacego boku, (dla aktualnej wersji zawsze leza wzdloz osi X lub Y)

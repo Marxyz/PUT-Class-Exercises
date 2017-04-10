@@ -1,13 +1,13 @@
 #include "cFigura.h"
 
 
-cFigura::cFigura(): R(0.0), G(0.0), B(0.0), alpha(0.0), CFizyka()
+cFigura::cFigura() : R(0.0), G(0.0), B(0.0), alpha(0.0), CFizyka()
 {
 	this->x = 0;
 	this->y = 0;
 }
 
-cFigura::cFigura(double x, double y): R(0.0), G(0.0), B(0.0), alpha(0.0), CFizyka()
+cFigura::cFigura(double x, double y) : R(0.0), G(0.0), B(0.0), alpha(0.0), CFizyka()
 {
 	this->x = x;
 	this->y = y;

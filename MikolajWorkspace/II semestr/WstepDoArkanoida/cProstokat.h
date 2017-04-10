@@ -3,6 +3,7 @@
 class cProstokat :
 	public cFigura
 {
+protected:
 	double width, height;
 public:
 	cProstokat();

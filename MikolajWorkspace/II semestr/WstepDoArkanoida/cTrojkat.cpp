@@ -2,12 +2,12 @@
 
 
 
-cTrojkat::cTrojkat(): podstawa(.2), wysokosc(.2), cFigura()
+cTrojkat::cTrojkat() : podstawa(.2), wysokosc(.2), cFigura()
 {
 	this->setGeometria(this->x, this->y, -podstawa / 2, -wysokosc / 2, podstawa / 2, wysokosc / 2);
 }
 
-cTrojkat::cTrojkat(float _x, float _y, double podstawa, double wysokosc): cFigura(_x,_y)
+cTrojkat::cTrojkat(float _x, float _y, double podstawa, double wysokosc) : cFigura(_x, _y)
 {
 	this->podstawa = podstawa;
 	this->wysokosc = wysokosc;
@@ -27,10 +27,10 @@ void cTrojkat::Draw()
 	glColor3f(R, G, B);
 
 	glBegin(GL_POLYGON);
-	
-	glVertex3d(-podstawa / 2, -wysokosc/2, 0);
-	glVertex3d(podstawa / 2, -wysokosc/2, 0);
-	glVertex3d(0, wysokosc/2, 0);
+
+	glVertex3d(-podstawa / 2, -wysokosc / 2, 0);
+	glVertex3d(podstawa / 2, -wysokosc / 2, 0);
+	glVertex3d(0, wysokosc / 2, 0);
 
 	glEnd();
 
@@ -39,5 +39,5 @@ void cTrojkat::Draw()
 
 bool cTrojkat::IsActive(double x, double y)
 {
-	return abs(this->x - x) <= (podstawa / 2) && abs(this->y - y) <= wysokosc/2;
+	return abs(this->x - x) <= (podstawa / 2) && abs(this->y - y) <= wysokosc / 2;
 }

@@ -21,6 +21,7 @@ public:
 	void Draw();
 	void Keyboard(unsigned char key, int x, int y);
 	void Mouse(int button, int state, int x, int y);
+	void MouseMove(int x, int y);
 	void Resize(int width, int height);
 	void Aktualizuj();
 

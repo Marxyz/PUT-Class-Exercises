@@ -2,12 +2,12 @@
 
 
 
-cProstokat::cProstokat():cFigura(), width(.2), height(.2)
+cProstokat::cProstokat() :cFigura(), width(.05), height(.05)
 {
 	this->setGeometria(this->x, this->y, -this->width / 2, -this->height / 2, this->width / 2, this->height / 2);
 }
 
-cProstokat::cProstokat(float x, float y, double width, double height): cFigura(x,y)
+cProstokat::cProstokat(float x, float y, double width, double height) : cFigura(x, y)
 {
 	this->width = width;
 	this->height = height;
