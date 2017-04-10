@@ -142,7 +142,7 @@ void Scena::Inicjuj() {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(800, 600);
-	glutCreateWindow("Arkanoid - wstep");
+	glutCreateWindow("Arkanoid - gra wstepna");
 	glClearColor(0, 1, 0.5, 1);
 	glutDisplayFunc(przerysuj);
 	glutReshapeFunc(resize);
