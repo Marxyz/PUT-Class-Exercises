@@ -29,7 +29,7 @@ void Tank::Draw()
 	}
 	glEnd();
 	this->turret.Draw();
-	//glPopMatrix();
+	glPopMatrix();
 
 }
 
