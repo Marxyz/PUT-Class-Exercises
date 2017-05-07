@@ -14,6 +14,7 @@ public:
 	void MouseMove(int x, int y);
 	void Resize(int width, int height);
 	void Update();
+	void Clear();
 	~Scene();
 };
 

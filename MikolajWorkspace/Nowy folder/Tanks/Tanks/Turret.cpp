@@ -5,13 +5,14 @@
 Turret::Turret()
 {
 }
-Turret::Turret(float x, float y) {
+Turret::Turret(float x, float y): Drawable() {
 	this->x = x;
 	this->y = y;
 	this->width = 2;
 	this->height = 2;
 	this->alpha = 0;
 	this->barrel = 4.5;
+	this->SetPerimeter(-width / 2, -height / 2, width / 2, height / 2);
 }
 void Turret::Draw()
 {

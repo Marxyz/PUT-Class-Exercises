@@ -10,6 +10,7 @@ public:
 	Turret();
 	Turret(float x, float y);
 	void Draw() override;
+	float GetBarrel() { return this->barrel; };
 	~Turret();
 };
 

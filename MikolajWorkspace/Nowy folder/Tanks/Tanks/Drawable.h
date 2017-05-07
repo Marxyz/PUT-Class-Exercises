@@ -36,16 +36,17 @@ public:
 	float GetX() { return this->x; }
 	float GetY() { return this->y; }
 	float GetAlpha() { return this->alpha; }
+	float GetVAlpha() { return this->vAlpha; }
 
 	void SetX(float x) { this->x = x; }
 	void SetY(float y) { this->y = y; }
 
-	void SetSpeed(float v, float alpha) { this->v = v; this->vAlpha = alpha; }
+	void SetSpeed(float v, float alpha) { this->v = v; this->vAlpha = alpha; Reset(); }
 
 	void Update(int currentTime);
 
 	bool GetVisible() { return this->visible; }
-	void SetPerimeter(float xa, float ya, float xb, float yb) { this->perimeter.xa = xa; this->perimeter.xb = xb; this->perimeter.ya = ya; this->perimeter.yb = yb; }
+	void SetPerimeter(float xa, float ya, float xb, float yb) { this->perimeter.xa = xa; this->perimeter.xb = xb; this->perimeter.ya = ya; this->perimeter.yb = yb; Reset(); }
 	void Collision(Drawable&X);
 	inline void Reset() { this->time = GetTickCount(); }
 	~Drawable();
