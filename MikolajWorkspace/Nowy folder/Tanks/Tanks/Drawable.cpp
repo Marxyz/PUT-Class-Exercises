@@ -18,14 +18,14 @@ Drawable::Drawable()
 
 void Drawable::MoveUp()
 {
-	this->x -= .1*cos(alpha*3.14 / 180);
-	this->y -= .1*sin(alpha*3.14 / 180);
+	this->x += .1*cos(alpha*3.14 / 180);
+	this->y += .1*sin(alpha*3.14 / 180);
 }
 
 void Drawable::MoveDown()
 {
-	this->x += .1*cos(alpha*3.14 / 180);
-	this->y += .1*sin(alpha*3.14 / 180);
+	this->x -= .1*cos(alpha*3.14 / 180);
+	this->y -= .1*sin(alpha*3.14 / 180);
 }
 
 

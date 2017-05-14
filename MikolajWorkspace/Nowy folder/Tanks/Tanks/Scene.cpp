@@ -160,7 +160,7 @@ void Scene::MouseMove(int x, int y) {
 	double xU = (xmin + x / windowWidth * (xmax - xmin));
 	double yU = (ymax - y / windowHeight * (ymax - ymin));
 
-	double alfa = (atan2(objects[0]->GetY() - yU, objects[0]->GetX()-xU)*180.0 / 3.14) - objects[0]->GetAlpha();
+	double alfa = (atan2(objects[0]->GetY() - yU, objects[0]->GetX()-xU)*180.0 / 3.14) - objects[0]->GetAlpha() ;
 	Tank*tmp = dynamic_cast<Tank*>(objects[0]);
 	if (tmp != nullptr)
 	{
