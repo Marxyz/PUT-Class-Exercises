@@ -28,7 +28,6 @@ public:
 
 private:
 
-
 	void DodajProstokat();
 	void UsunProstokat();
 	vector<Figura*> Zbior_Obiektow;

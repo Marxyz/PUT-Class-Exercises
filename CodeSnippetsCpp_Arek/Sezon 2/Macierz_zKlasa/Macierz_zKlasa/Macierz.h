@@ -25,8 +25,7 @@ public:
 	Macierz operator * (const Macierz& macierzB);
 	Macierz operator * (const double skalar);
 	Macierz operator / (Macierz & macierzB);
-	friend ostream& operator << (ostream& strumien, Macierz& m);
-	friend istream& operator >> (istream& strumien, Macierz& m);
+		
 
 	Macierz StworzMacierzOdwrotna();
 	Macierz StworzMacierzTransponowana();

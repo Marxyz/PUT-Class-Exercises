@@ -36,7 +36,7 @@ void IdleCallback()
 
 
 
-Scene::Scene() :  xmin(-20.0), ymin(-20.0), xmax(20.0), ymax(20.0)
+Scene::Scene() :  xmin(-20.0), xmax(20.0), ymin(-20.0), ymax(20.0)
 {
 
 }
@@ -48,6 +48,7 @@ Scene::~Scene()
 void Scene::Idle()
 {
 	scene.Update();
+	scene.Clear();
 	glutPostRedisplay();
 	Sleep(20);
 }
@@ -62,7 +63,7 @@ void Scene::Init()
 
 	srand(time(nullptr));
 
-	Tank* tank = new Tank();
+	Tank* tank = new Tank(17,-15);
 	objects.push_back(tank);
 
 	glutIdleFunc(IdleCallback);
@@ -104,34 +105,65 @@ void Scene::Resize(int width, int height)
 
 void Scene::Update()
 {
+	int time = GetTickCount();
+	for (auto element : objects)
+	{
+		element->Update(time);
+	}
 
+}
+
+void Scene::Clear()
+{
+	double windowWidth = glutGet(GLUT_WINDOW_WIDTH);
+	double windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
+	double WHratio = windowWidth / windowHeight;
+
+	if (objects.size() > 4) {
+		for (std::vector<Drawable*>::iterator element = objects.begin(); element != objects.end();)
+		{
+			if ((*element)->GetX() > WHratio*xmax || (*element)->GetY() > ymax || (*element)->GetX() < WHratio*xmin || (*element)->GetY() < ymin)
+			{
+				delete *element;
+				element = objects.erase(element);
+			}
+			else
+			{
+				element++;
+			}
+		}
+	}
 }
 
 
 void Scene::Keyboard(unsigned char key, int x, int y)
 {
-	switch(key)
+	Tank*tmp = dynamic_cast<Tank*>(objects[0]);
+	if (tmp != nullptr)
 	{
-	case 'w':
+		switch (key)
 		{
-		objects[0]->MoveUp();
-		break;
-		}
-	case 's':
+		case 'w':
 		{
-		objects[0]->MoveDown();
-		break;
+			tmp->MoveUp();
+			break;
 		}
-	case 'a':
+		case 's':
 		{
-		objects[0]->Rotate(5);
-		break;
+			tmp->MoveDown();
+			break;
 		}
-	case 'd':
-	{
-		objects[0]->Rotate(-5);
-		break;
-	}
+		case 'a':
+		{
+			tmp->Rotate(5);
+			break;
+		}
+		case 'd':
+		{
+			tmp->Rotate(-5);
+			break;
+		}
+		}
 	}
 }
 
@@ -142,12 +174,21 @@ void Scene::Mouse(int button, int state, int x, int y)
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 	{
 
-		double windowWidth = glutGet(GLUT_WINDOW_WIDTH);
+		/*double windowWidth = glutGet(GLUT_WINDOW_WIDTH);
 		double windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
 		//std::cout << windowWidth << std::endl;
 
 		double xU = xmin + x / windowWidth * (xmax - xmin);
-		double yU = ymax - y / windowHeight * (ymax - ymin);
+		double yU = ymax - y / windowHeight * (ymax - ymin);*/
+		Tank*tmp = dynamic_cast<Tank*>(objects[0]);
+		if (tmp != nullptr)
+		{
+			//Bullet * bullet = new Bullet(tmp->GetX(), tmp->GetY());
+			Bullet * bullet = new Bullet(-tmp->GetBarrel()*cos(tmp->getTurretAlpha()/180.0*3.141592) + tmp->GetX(), -tmp->GetBarrel()*sin(tmp->getTurretAlpha()/ 180.0*3.141592)+tmp->GetY());
+			bullet->SetSpeed(0.022, tmp->getTurretAlpha());
+			objects.push_back(bullet);
+		}
+		std::cout << objects.size() << std::endl;
 	}
 
 }
@@ -160,10 +201,11 @@ void Scene::MouseMove(int x, int y) {
 	double xU = (xmin + x / windowWidth * (xmax - xmin));
 	double yU = (ymax - y / windowHeight * (ymax - ymin));
 
-	double alfa = (atan2(objects[0]->GetY() - yU, objects[0]->GetX()-xU)*180.0 / 3.14) - objects[0]->GetAlpha() ;
+	//double alfa = (atan2(objects[0]->GetX() - yU, objects[0]->GetX()-xU)*180.0 / 3.14) - objects[0]->GetAlpha();
 	Tank*tmp = dynamic_cast<Tank*>(objects[0]);
+	double alfa = (atan2(yU- objects[0]->GetY(), objects[0]->GetX() - xU)*180.0 / 3.141592)-tmp->getTurretAlpha() / 180.0*3.141592;
 	if (tmp != nullptr)
 	{
-		tmp->RotateTurret(alfa);
+		tmp->RotateTurret(-alfa);
 	}
 }

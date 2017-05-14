@@ -3,8 +3,11 @@
 class Bullet :
 	public Drawable
 {
+private: 
+	float radius;
 public:
-	Bullet();
+	Bullet(float x, float y);
 	~Bullet();
+	void Draw() override;
 };
 
