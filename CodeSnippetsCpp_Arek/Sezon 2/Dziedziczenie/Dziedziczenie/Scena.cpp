@@ -235,6 +235,7 @@ void Scena::setActual(int i)
 
 }
 
+
 void Scena::DodajProstokat()
 {
 	double dlugosc, wysokosc, predkosc;

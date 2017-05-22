@@ -12,7 +12,7 @@ typedef struct sGranica
 } sGranica;/*granice okreslaja lewy dolny naroznik (xa,ya) i prawy górny (xb,yb) */
 
 
-class CFizyka
+class Fizyka
 {
 protected:
 	int czas; //czas ostatniej aktualizacji
@@ -23,24 +23,24 @@ protected:
 	float g; //grawitacja
 	float alfa_g;//kierunek wektora grawitacji
 	bool widoczny;
+	
 
 public:
-	CFizyka();
+	Fizyka();
 	float ZwracajX() { return float(_x); }
 	float ZwracajY() { return float(_y); }
 	void UstawX(float _x) { _x = (int)_x; }
 	void UstawY(float _y) { _y = (int)_y; }
 	void Odbicie(float alfa_n); //odbicie od sciany charakteryzowanej za pomoca normalnej alfa_n
-	void Aktualizuj(int czas_aktualny);//zmienia polozenie obiektu na podstawie aktualnego czasu
+	void Aktualizuj(float czas_aktualny);//zmienia polozenie obiektu na podstawie aktualnego czasu
 	void setPredkosc(float _v, float _alfa_v); //ustawia poczatkowa predkosc
 	void setFizyka(float _g, float _alfa_g); //ustawia poczatkowe przyspieszenie
 	void setGeometria(float _x, float _y, float _xa, float _ya, float _xb, float _yb);
-	virtual int Kolizja(CFizyka& X); //wykrywanie kolizji z innym obiektem (funkcja przekazuje 1 gdy jest kolizja 0 gdy brak)
-	int IsInRect(float _x, float _y, const CFizyka& X);//wykrywa czy dany punkt (_x,_y) znajduje sie wewnatrz pewnego kwadratu
+	virtual int Kolizja(Fizyka& X); //wykrywanie kolizji z innym obiektem (funkcja przekazuje 1 gdy jest kolizja 0 gdy brak)
+	int IsInRect(float _x, float _y, const Fizyka& X);//wykrywa czy dany punkt (_x,_y) znajduje sie wewnatrz pewnego kwadratu
 	float odleglosc(float _x, float _y, float _xa, float _ya, float _xb, float _yb);//wyznacza odleglosc od pewnej prostej przechodzacej przez 2 punkty
-	virtual float ZnajdzNormalna(const CFizyka& X);//znajduje normalna boku ktory jest najblizej srodka obiektu (wynikiem funkcji jest orientacja normalnej);
+	virtual float ZnajdzNormalna(const Fizyka& X);//znajduje normalna boku ktory jest najblizej srodka obiektu (wynikiem funkcji jest orientacja normalnej);
 	void Reset(); //resetuje czas
-
 	bool ZwracajWidoczny();
 };
 

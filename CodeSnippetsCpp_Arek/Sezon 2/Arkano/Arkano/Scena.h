@@ -14,22 +14,23 @@ public:
 	Scena();
 	void Idle();
 	void Rysuj();
-	void Klawisz(unsigned char znak, int x, int y);
 	void Inicjuj();
 	void Mysz(int button, int state, int x, int y);
 	void Resize(int width, int height);
 	void Aktualizuj();
+	void PasywnaMysz(int x, int y);
 
+	static void PrzerwijGre();
 
+	double predkosc;
 	int actual;
-	double _xmin,_ymin,_xmax,_ymax;
+	int punktacja;
+	double _xmin, _ymin, _xmax, _ymax;
 
 	void setActual(int i);
-
+	vector<Figura*> Zbior_Obiektow;
 private:
 
-	void DodajProstokat();
-	void UsunProstokat();
-	vector<Figura*> Zbior_Obiektow;
+	
 };
 extern Scena scena;

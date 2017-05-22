@@ -1,0 +1,245 @@
+#include "cScene.h"
+
+cScene scena;
+
+//CALLBACKS FUNCTIONS
+
+void MouseCallback(int button, int state, int x, int y)
+{
+	scena.Mouse(button, state, x, y);
+}
+
+
+void DrawCallback()
+{
+	scena.Draw();
+}
+void KeyboardCallback(unsigned char key, int x, int y)
+{
+	scena.Keyboard(key, x, y);
+}
+
+void ResizeCallback(int a, int b)
+{
+	scena.Resize(a, b);
+}
+
+void IdleCallback()
+{
+	scena.Idle();
+
+}
+
+void MouseMoveCallback(int x, int y){
+	scena.MouseMove(x, y);
+}
+
+
+cScene::cScene() : xmin(0), ymin(-1), xmax(3.0), ymax(1.0)
+{
+
+}
+
+cScene::~cScene()
+{
+}
+
+void cScene::Idle()
+{
+	glutPostRedisplay();
+	Sleep(11);
+
+}
+
+void cScene::Init()
+{
+	glutInitWindowSize(800, 600);
+	glutInitWindowPosition(40, 40);
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH | GLUT_MULTISAMPLE);
+	glutCreateWindow("Rybki w akwarium");
+	glClearColor(1.000, 0.753, 0.796, 1);
+
+	cWykres wykresik("wykres.txt");
+	wykresy.push_back(wykresik);
+
+	glutIdleFunc(IdleCallback);
+	glutDisplayFunc(DrawCallback);
+	glutKeyboardFunc(KeyboardCallback);
+	glutMouseFunc(MouseCallback);
+	glutPassiveMotionFunc(MouseMoveCallback);
+	glutReshapeFunc(ResizeCallback);
+
+}
+
+void cScene::Draw()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glPushMatrix();
+	for (cWykres element : wykresy){
+		element.Rysuj();
+	}
+	glPopMatrix();
+
+	glutSwapBuffers();
+}
+
+void cScene::Resize(int width, int height)
+{
+	const auto ar = static_cast<float>(width) / static_cast<float>(height);
+	this->xmin = -ar;
+	this->xmax = ar;
+
+	glViewport(0, 0, width, height);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(xmin, xmax, ymin, ymax, -.1, .1);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+}
+
+
+void cScene::Keyboard(unsigned char key, int x, int y)
+{
+	
+}
+
+void cScene::Mouse(int button, int state, int x, int y)
+{
+
+
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+	{
+
+		double windowWidth = glutGet(GLUT_WINDOW_WIDTH);
+		double windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
+		//std::cout << windowWidth << std::endl;
+
+		double xU = xmin + x / windowWidth * (xmax - xmin);
+		double yU = ymax - y / windowHeight * (ymax - ymin);
+		
+	}
+
+
+}
+
+void cScene::MouseMove(int x, int y){
+	double windowWidth = glutGet(GLUT_WINDOW_WIDTH);
+	double windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
+
+	double xU = xmin + x / windowWidth * (xmax - xmin);
+	//double yU = ymax - y / windowHeight * (ymax - ymin);
+	//obiekty[0]->MoveTo(xU, -.7);
+
+
+
+}#pragma once
+#include <vector>
+#include <GL/freeglut.h>
+#include <iostream>
+#include "cWykres.h"
+
+
+class cScene
+{
+	//std::vector<cFigura*> obiekty;
+	vector<cWykres> wykresy;
+protected:
+	double xmin, xmax, ymin, ymax;
+public:
+	cScene();
+	~cScene();
+	void Idle();
+	void Init();
+	void Draw();
+	void Keyboard(unsigned char key, int x, int y);
+	void Mouse(int button, int state, int x, int y);
+	void MouseMove(int x, int y);
+	void Resize(int width, int height);
+
+
+};
+
+extern cScene scena;
+
+
+
+
+
+
+#include "cWykres.h"
+
+
+cWykres::cWykres(string nazwa)
+{
+	fstream plik(nazwa);
+	if (!plik.is_open()){
+		cout << "Nie otwarto pliku" << endl;
+	}
+	else{
+		while (!plik.eof()){
+			Punkt tmp;
+			string line;
+			getline(plik, line);
+			if (line == "") break;
+			istringstream sline(line);
+			sline >> tmp.x >> tmp.y;
+			cout << tmp.x << tmp.y << endl;
+			punkty.push_back(tmp);
+		}
+	}
+	plik.close();
+}
+
+void cWykres::Rysuj(){
+	glPushMatrix;
+	glColor3f(0, 0, 0);
+	glBegin(GL_LINE_STRIP);
+	for (auto punkcik : punkty){
+		glVertex2d(punkcik.x, punkcik.y);
+	}
+	glEnd();
+	glPopMatrix;
+}
+
+
+cWykres::~cWykres()
+{
+}
+
+
+
+#pragma once
+#include <vector>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include <GL/freeglut.h>
+
+using namespace std;
+struct Punkt{
+	float x;
+	float y;
+};
+
+class cWykres
+{
+private:
+	vector<Punkt>punkty;
+public:
+	cWykres(string nazwa);
+	void Rysuj();
+	float MinX();
+	float MaxX();
+	float MinY();
+	float MaxY();
+	~cWykres();
+};
+
+
+
+
+
+
