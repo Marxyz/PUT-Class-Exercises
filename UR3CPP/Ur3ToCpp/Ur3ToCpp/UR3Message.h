@@ -1,6 +1,41 @@
 #pragma once
 #include <vector>
 
+struct RobotModeData{
+	uint64_t timestamp;
+	bool isRobotConnected;
+	bool isRealRobotEnabled;
+	bool isRobotPowerOn;
+	bool isEmergencyStopped;
+	bool isProtectiveStopped;
+	bool isProgramRunning;
+	bool isProgramPaused;
+	RobotMode robotMode;
+	ControlMode controlMode;
+	double speedFraction;
+	double speedScaling;
+};
+
+enum RobotMode {
+	ROBOT_MODE_DISCONNECTED = 0,
+	ROBOT_MODE_CONFIRM_SAFETY = 1,
+	ROBOT_MODE_BOOTING = 2,
+	ROBOT_MODE_POWER_OFF = 3,
+	ROBOT_MODE_POWER_ON = 4,
+	ROBOT_MODE_IDLE = 5,
+	ROBOT_MODE_BACKDRIVE = 6,
+	ROBOT_MODE_RUNNING = 7,
+	ROBOT_MODE_UPDATING_FIRMWARE = 8
+};
+
+enum ControlMode{
+	CONTROL_MODE_POSITION = 0,				
+	CONTROL_MODE_TEACH = 1,	
+	CONTROL_MODE_FORCE = 2,		
+	CONTROL_MODE_TORQUE = 3		
+
+};
+
 struct JointData{
 	std::vector<double> actualJointPosition;
 	std::vector<double> targetJointPosition;
@@ -11,28 +46,109 @@ struct JointData{
 	JointMode jointMode;
 };
 
+enum JointMode{
+	JOINT_SHUTTING_DOWN_MODE = 236,
+	JOINT_PART_D_CALIBRATION_MODE = 237,
+	JOINT_BACKDRIVE_MODE = 238,
+	JOINT_POWER_OFF_MODE = 239,
+	JOINT_NOT_RESPONDING_MODE = 245,
+	JOINT_MOTOR_INITIALISATION_MODE = 246,
+	JOINT_BOOTING_MODE = 247,
+	JOINT_PART_D_CALIBRATION_ERROR_MODE = 248,
+	JOINT_BOOTLOADER_MODE = 249,
+	JOINT_CALIBRATION_MODE = 250,
+	JOINT_FAULT_MODE = 252,
+	JOINT_RUNNING_MODE = 253,
+	JOINT_IDLE_MODE = 255
 
+};
+
+struct ToolData{
+	char analogInputRange2;		
+	char analogInputRange3;	
+	double analogInput2;
+	double analogInput3;		
+	float toolVoltage48V;		
+	unsigned char toolOutputVoltage;		
+	float toolCurrent;		
+	float toolTemperature;		
+	ToolMode toolMode;		
+
+};
+
+enum ToolMode{
+	TOOL_BOOTLOADER_MODE = 249,			
+	TOOL_RUNNING_MODE = 253,
+	TOOL_IDLE_MODE= 255
+
+};
+
+struct MasterboardData{
+	int digitalInputBits;
+	int digitalOutputBits;
+	char analogInputRange0;
+	char analogInputRange1;
+	double analogInput0;
+	double analogInput1;
+	char analogOutputDomain0;
+	char analogOutputDomain1;
+	double analogOutput0;
+	double analogOutput1;
+	float masterBoardTemperature;
+	float robotVoltage48V;
+	float robotCurrent;
+	float masterIOCurrent;
+	SafetyMode safetyMode;
+	unsigned char masterOnOffState;
+	char euromap67InterfaceInstalled;
+	int euromapInputBits;
+	int euromapOutputBits;
+	float euromapVoltage;
+	float euromapCurrent;
+};
+
+enum SafetyMode{
+	SAFETY_MODE_FAULT = 9,
+	SAFETY_MODE_VIOLATION = 8,
+	SAFETY_MODE_ROBOT_EMERGENCY_STOP = 7,
+	SAFETY_MODE_SYSTEM_EMERGENCY_STOP = 6,
+	SAFETY_MODE_SAFEGUARD_STOP = 5,
+	SAFETY_MODE_RECOVERY = 4,
+	SAFETY_MODE_PROTECTIVE_STOP = 3,
+	SAFETY_MODE_REDUCED = 2,
+	SAFETY_MODE_NORMAL = 1
+
+}
+
+struct CartesianInfo{
+	double x,y,z;
+	double rx, ry, rz;
+};
+
+struct ConfigurationData{
+	double jointMinLimit;	
+	double jointMaxLimit;	
+	double jointMaxSpeed;	
+	double jointMaxAcceleration;	
+	double vJointDefault;	
+	double aJointDefault;	
+	double vToolDefault;	
+	double aToolDefault;	
+	double eqRadius;	
+	double DHa;	
+	double DHd;	
+	double DHalpha;	
+	double DHtheta;	
+	int masterboardVersion;	
+	int controllerBoxType;	
+	int robotType;	
+	int robotSubType;	
+
+};
 
 enum MessageType
 {
 	ROBOT_STATE = 16, ROBOT_MESSAGE = 20, PROGRAM_STATE_MESSAGE = 25
-};
-
-enum JointMode{
-	JOINT_SHUTTING_DOWN_MODE = 236;
-	JOINT_PART_D_CALIBRATION_MODE = 237;
-	JOINT_BACKDRIVE_MODE = 238;
-	JOINT_POWER_OFF_MODE = 239;
-	JOINT_NOT_RESPONDING_MODE = 245;
-	JOINT_MOTOR_INITIALISATION_MODE = 246;
-	JOINT_BOOTING_MODE = 247;
-	JOINT_PART_D_CALIBRATION_ERROR_MODE = 248;
-	JOINT_BOOTLOADER_MODE = 249;
-	JOINT_CALIBRATION_MODE = 250;
-	JOINT_FAULT_MODE = 252;
-	JOINT_RUNNING_MODE = 253;
-	JOINT_IDLE_MODE = 255;
-
 };
 
 enum PackageTypes
@@ -62,17 +178,7 @@ enum RobotMessageType {
 	ROBOT_MESSAGE_RUNTIME_EXCEPTION = 10
 };
 
-enum RobotStateType {
-	ROBOT_MODE_DISCONNECTED = 0,
-	ROBOT_MODE_CONFIRM_SAFETY = 1,
-	ROBOT_MODE_BOOTING = 2,
-	ROBOT_MODE_POWER_OFF = 3,
-	ROBOT_MODE_POWER_ON = 4,
-	ROBOT_MODE_IDLE = 5,
-	ROBOT_MODE_BACKDRIVE = 6,
-	ROBOT_MODE_RUNNING = 7,
-	ROBOT_MODE_UPDATING_FIRMWARE = 8
-};
+
 
 class UR3Message
 {
