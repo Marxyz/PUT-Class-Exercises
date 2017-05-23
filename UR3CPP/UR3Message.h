@@ -79,7 +79,7 @@ class UR3Message
 public:
 	
 	int MessageSize;
-
+	std::vector<JointData> jointsData;
 
 
 
