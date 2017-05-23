@@ -1,8 +1,10 @@
 #pragma once
 #include <vector>
 
-struct RobotModeData{
+class RobotModeData //value 0
+{ 
 	uint64_t timestamp;
+	
 	bool isRobotConnected;
 	bool isRealRobotEnabled;
 	bool isRobotPowerOn;
@@ -10,10 +12,15 @@ struct RobotModeData{
 	bool isProtectiveStopped;
 	bool isProgramRunning;
 	bool isProgramPaused;
+	
 	RobotMode robotMode;
 	ControlMode controlMode;
+	
 	double speedFraction;
 	double speedScaling;
+	
+	RobotModeData();
+	~RobotModeData();
 };
 
 enum RobotMode {
@@ -36,14 +43,18 @@ enum ControlMode{
 
 };
 
-struct JointData{
+class JointData // value 1
+{
 	std::vector<double> actualJointPosition;
 	std::vector<double> targetJointPosition;
 	std::vector<double> actualJointSpeed;
 	std::vector<float> actualJointCurrent;
 	std::vector<float> actualJointVoltage;
 	std::vector<float> actualMotorTemprature;
+	
 	JointMode jointMode;
+	
+	~JointData();
 };
 
 enum JointMode{
@@ -63,16 +74,24 @@ enum JointMode{
 
 };
 
-struct ToolData{
+class ToolData //value 2
+{
 	char analogInputRange2;		
 	char analogInputRange3;	
+	
 	double analogInput2;
 	double analogInput3;		
+	
 	float toolVoltage48V;		
-	unsigned char toolOutputVoltage;		
 	float toolCurrent;		
-	float toolTemperature;		
-	ToolMode toolMode;		
+	float toolTemperature;
+	
+	unsigned char toolOutputVoltage;				
+	
+	ToolMode toolMode;	
+
+	ToolData();
+	~ToolData();
 
 };
 
@@ -83,7 +102,8 @@ enum ToolMode{
 
 };
 
-struct MasterboardData{
+class MasterboardData //value 3
+{
 	int digitalInputBits;
 	int digitalOutputBits;
 	char analogInputRange0;
@@ -105,6 +125,9 @@ struct MasterboardData{
 	int euromapOutputBits;
 	float euromapVoltage;
 	float euromapCurrent;
+	
+	MasterboardData();
+	~MasterboardData();
 };
 
 enum SafetyMode{
@@ -120,12 +143,17 @@ enum SafetyMode{
 
 }
 
-struct CartesianInfo{
+class CartesianInfoData // value 4
+{
 	double x,y,z;
 	double rx, ry, rz;
+	
+	CartesianInfoData();
+	~CartesianInfoData();
 };
 
-struct ConfigurationData{
+class ConfigurationData //value 6
+{
 	double jointMinLimit;	
 	double jointMaxLimit;	
 	double jointMaxSpeed;	
@@ -143,6 +171,9 @@ struct ConfigurationData{
 	int controllerBoxType;	
 	int robotType;	
 	int robotSubType;	
+	
+	ConfigurationData();
+	~ConfigurationData();
 
 };
 
