@@ -2,7 +2,9 @@
 #include <vector>
 #include "UR3Message.h"
 #include <string>
+
 using namespace std;
+
 class UR3Intermediator
 {
 
