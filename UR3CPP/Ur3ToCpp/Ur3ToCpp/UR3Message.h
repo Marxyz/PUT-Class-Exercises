@@ -1,9 +1,38 @@
 #pragma once
+#include <vector>
+
+struct JointData{
+	std::vector<double> actualJointPosition;
+	std::vector<double> targetJointPosition;
+	std::vector<double> actualJointSpeed;
+	std::vector<float> actualJointCurrent;
+	std::vector<float> actualJointVoltage;
+	std::vector<float> actualMotorTemprature;
+	JointMode jointMode;
+};
+
 
 
 enum MessageType
 {
 	ROBOT_STATE = 16, ROBOT_MESSAGE = 20, PROGRAM_STATE_MESSAGE = 25
+};
+
+enum JointMode{
+	JOINT_SHUTTING_DOWN_MODE = 236;
+	JOINT_PART_D_CALIBRATION_MODE = 237;
+	JOINT_BACKDRIVE_MODE = 238;
+	JOINT_POWER_OFF_MODE = 239;
+	JOINT_NOT_RESPONDING_MODE = 245;
+	JOINT_MOTOR_INITIALISATION_MODE = 246;
+	JOINT_BOOTING_MODE = 247;
+	JOINT_PART_D_CALIBRATION_ERROR_MODE = 248;
+	JOINT_BOOTLOADER_MODE = 249;
+	JOINT_CALIBRATION_MODE = 250;
+	JOINT_FAULT_MODE = 252;
+	JOINT_RUNNING_MODE = 253;
+	JOINT_IDLE_MODE = 255;
+
 };
 
 enum PackageTypes
@@ -21,15 +50,36 @@ enum PackageTypes
 	SAFETY_DATA = 10
 };
 
+enum RobotMessageType {
+	ROBOT_MESSAGE_TEXT = 0,
+	ROBOT_MESSAGE_PROGRAM_LABEL = 1,
+	PROGRAM_STATE_MESSAGE_VARIABLE_UPDATE = 2,
+	ROBOT_MESSAGE_VERSION = 3,
+	ROBOT_MESSAGE_SAFETY_MODE = 5,
+	ROBOT_MESSAGE_ERROR_CODE = 6,
+	ROBOT_MESSAGE_KEY = 7,
+	ROBOT_MESSAGE_REQUEST_VALUE = 9,
+	ROBOT_MESSAGE_RUNTIME_EXCEPTION = 10
+};
 
-
+enum RobotStateType {
+	ROBOT_MODE_DISCONNECTED = 0,
+	ROBOT_MODE_CONFIRM_SAFETY = 1,
+	ROBOT_MODE_BOOTING = 2,
+	ROBOT_MODE_POWER_OFF = 3,
+	ROBOT_MODE_POWER_ON = 4,
+	ROBOT_MODE_IDLE = 5,
+	ROBOT_MODE_BACKDRIVE = 6,
+	ROBOT_MODE_RUNNING = 7,
+	ROBOT_MODE_UPDATING_FIRMWARE = 8
+};
 
 class UR3Message
 {
 public:
-
+	
 	int MessageSize;
-
+	std::vector<JointData> jointsData;
 
 
 
