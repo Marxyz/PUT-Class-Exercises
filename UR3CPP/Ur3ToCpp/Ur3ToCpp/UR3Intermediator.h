@@ -14,7 +14,7 @@ public:
 	vector<int> ReadDataFlow();
 	
 	bool SendData(string ParsedToStringMethod);
-	string ParseOutput(UR3MessageOut MessageToSend);
+	string ParseOutput(UR3MessageOut MessageToSend, int Case); // Case: 1 parses to moveJ, 2 parses to 
 
 	void LogData(string data);
 	void ViewData();
