@@ -26,12 +26,16 @@ signals:
     void ZapytajSerwer(int dzien,int miesiac, int pora);
 private slots:
 
+    void SczytajEmitowanePrzezServerWartosci(float temperatura, QString pogoda);
+    void LoadIp();
+    void SaveIp();
     void Wyslij();
     void Polacz();
     void DialogButtonSend();
 
 private:
-
+    QString _loadFilePath;
+    QString _saveFilePath;
     QString _ipAdress;
     int _port;
     ServerClient* _serverClient;

@@ -17,12 +17,13 @@ public:
     bool Connect();
 
 signals:
-
+    void EmitujWartosci(float temperatura, QString Pogoda);
 public slots:
 
     void OdbierzSygnalOdKlienta(int dzien,int miesiac, int pora);
 
 private:
+
     QString _ipAdress;
     int _port;
     QTcpSocket* _tcpSocket;

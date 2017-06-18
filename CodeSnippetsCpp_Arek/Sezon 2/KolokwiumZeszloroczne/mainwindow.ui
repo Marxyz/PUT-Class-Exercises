@@ -113,7 +113,15 @@
     </property>
     <addaction name="actionPolacz"/>
    </widget>
+   <widget class="QMenu" name="menuIO">
+    <property name="title">
+     <string>IO</string>
+    </property>
+    <addaction name="actionZapisz"/>
+    <addaction name="actionWczytaj"/>
+   </widget>
    <addaction name="menuKonfiguracja"/>
+   <addaction name="menuIO"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -130,6 +138,16 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="actionZapisz">
+   <property name="text">
+    <string>Zapisz</string>
+   </property>
+  </action>
+  <action name="actionWczytaj">
+   <property name="text">
+    <string>Wczytaj</string>
    </property>
   </action>
  </widget>

@@ -49,6 +49,7 @@ void ServerClient::OdbierzSygnalOdKlienta(int dzien, int miesiac, int pora)
                     _tcpSocket->waitForReadyRead();
                     _tcpSocket->disconnectFromHost();
                     _tcpSocket->waitForDisconnected();
+                    emit EmitujWartosci(recvdData.Size,"UDAlO SIE");
                     return;
                 }
             }
