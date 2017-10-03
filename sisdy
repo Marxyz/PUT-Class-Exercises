@@ -1,0 +1,11 @@
+function [ out ] = SignalNormalizer( signal_file_path )
+%UNTITLED4 Summary of this function goes here
+%   Detailed explanation goes here
+
+signal = load(signal_file_path);
+max_value = max(signal);
+min_value = min(signal);
+
+y = (y-min_value)*(max_value - min_value)
+y = 2*y - 1;
+end
