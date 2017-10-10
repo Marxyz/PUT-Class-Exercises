@@ -1,0 +1,68 @@
+clc;
+clear all;
+close all;
+
+inputData = load('u.dat');
+R = 0.01;
+e = sum(abs(inputData.^2));
+psr = e/length(inputData);
+xsk1 = sqrt(psr)
+%minI = min(inputData./R);
+%minU = min(inputData);
+%FF = wspolKsztaltu(inputData);
+%xsk = FF * sum(abs(inputData))/length(inputData)
+px = xsk1^2/R;
+
+win = 0.1*length(inputData);
+pmax = 0;
+for i=1:length(inputData)-win
+    subData = inputData(i:i+win);
+    eSub = sum(abs(subData.^2));
+    psrSub = eSub/length(subData);
+    xskSub = sqrt(psrSub);
+    pSub = xskSub^2/R;
+    pmax = max([pmax,pSub])
+    
+end
+
+
+
+function [ FF ] = wspolKsztaltu( inData )
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+
+e = 0;
+%for i=1:length(inData)
+  %      e=e+abs(inData(i)^2);
+%end;
+%squared = inData.^2;
+e = sum(abs(inData.^2));
+p = e/length(inData);
+xsk = sqrt(p);
+%for i=1:length(inData)
+ %       sum = sum + abs(inData(i));
+%end;
+xsrb = sum(abs(inData))/length(inData);
+FF = xsk/xsrb;
+
+end
+
+clc;
+clear all;
+close all;
+
+t = 0.00001;
+A = 5.12;
+f = 5;
+T = 2;
+x = 0:t:T-t;
+n1 = (1/t)*(1/f);
+y1 = 0:A/n1:A-A/n1;
+y=repmat(y1,1,f*T);
+plot(x,y);
+hold on;
+FFy = wspolKsztaltu(y)
+inputData = load('form.dat');
+FFinputData = wspolKsztaltu(inputData)
+%plot(0:t:,inputData,'g');
+
