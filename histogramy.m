@@ -2,10 +2,10 @@ clc;
 clear all;
 close all;
 
-data = -4.2 + 2.3*randn(1,10);
+%data = -4.2 + 2.3*randn(1,10);
 %data = [-5 4 2 1 1 3 8 -2 -3 5];
 %data = 9 + 2.3*randn(1,10);
-%data = [-1 2 4 -3 5 7 -3 2 2 -1];
+data = [-1 2 4 -3 5 7 -3 2 2 -1];
 wartOczek = WartOczekiwana(data);
 odchylenie = OdchylenieStandardowe(data);
 
@@ -19,9 +19,12 @@ bars = zeros(1,bins);
 for i=1:length(data)
     yval = data(i);
     a = (data(i)-minValue)/wbin;
-    %tu jest problem, bo kiedy a = 10, to ind = 11 czyli fatal error
     ind = floor(a)+1;
-    bars(ind) = bars(ind)+1;
+    if ind > bins
+        ind = ind -1;
+    end;
+    bars(ind) = bars(ind)+1;  
 end
 
-bar(bars);
+x = minValue:wbin:maxValue-wbin;
+barh(x,bars);
