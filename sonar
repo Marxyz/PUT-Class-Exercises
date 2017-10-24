@@ -1,0 +1,18 @@
+ile_wzrost = 10;
+results = [];
+dlugosc_x = length(x);
+for c = 1:ile_wzrost
+    ind1 = (c-1)* ile_wzrost/100 * dlugosc_x + 1;
+    ind2 = c * ile_wzrost/100 * dlugosc_x;
+    y_c = y(ind1:ind2);
+    x_c = x( ind1 : ind2);
+    [z,lags] = xcorr(y_c,x_c);
+    %plot(lags,z,'r-');
+    [max_z,i] = max(z);
+    przes = lags(i);
+    czas = przes * ts;
+    m = abs(340*czas)/2;
+    results = [results m];
+end
+results
+plot(1:10,results,'r-');
