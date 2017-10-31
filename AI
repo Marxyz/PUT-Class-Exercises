@@ -1,0 +1,43 @@
+
+function [ outHist] = genHist( image)
+%GENHIST Generuje histogram dla podanego obrazu.
+% Obraz jest macierza h x w x 3 o wartosciach w zakresie 0 - 255.
+% Wynikowy histogram powinien byc wektorem wierszowym o stałej długości.
+
+    % Zastap ponizszy kod tak, aby obliczal histogram dla obrazu RGB.
+    % Proszę dobrać odpowiednią długość wektora outHist.
+    outHist = [];
+    ilosc_koszy = 128;
+    szer_kosza = 256/ilosc_koszy;
+
+    wiersze = size(image,1);
+    kolumny = size(image,2);
+    zety = size(image,3);
+    
+    min = 0;
+    
+   for kolor = 1:zety
+       
+       tablica_wartosci = zeros(1,ilosc_koszy);
+       
+       for r = 1:wiersze
+          for c = 1:kolumny
+              
+              wartosc = double(image(r,c,kolor));
+              indeks = floor((wartosc - min)/ szer_kosza);
+              
+              
+              if indeks < ilosc_koszy
+                indeks = indeks + 1;
+                tablica_wartosci(indeks) = tablica_wartosci(indeks) + 1;
+              else
+                
+                tablica_wartosci(indeks) = tablica_wartosci(indeks) + 1;
+                
+              end
+          end
+       end
+       
+       outHist = [outHist , tablica_wartosci];
+   end
+   
