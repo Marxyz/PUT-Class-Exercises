@@ -1,0 +1,31 @@
+
+coeffs1 = 100 * rand(1,1000000);
+coeffs2 = 100 * rand(1,1000000);
+
+N = length(coeffs2) - 1;
+
+coeffs1 = [coeffs1 zeros(1,N)];
+coeffs2 = [coeffs2 zeros(1,N)];
+
+tic
+fft1 = fft(coeffs1);
+fft2 = fft(coeffs2);
+
+fftr = fft1.*fft2;
+
+result1 = ifft(fftr);
+toc
+
+tic
+result2 = conv(coeffs1,coeffs2);
+toc
+
+figure
+
+subplot(1,2,1);
+plot(result1);
+title("Szybko");
+
+subplot(1,2,2);
+plot(result2);
+title("Normalnie");
