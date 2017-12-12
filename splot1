@@ -1,0 +1,43 @@
+gaus = gausswin(9);
+ts = 1*10^(-3);
+zaszum = load('noiseSig.dat');
+splot = conv(gaus,zaszum);
+N = length(splot);
+
+X = fft(splot);
+NX = length(X);
+fs = 1/ts;
+df = fs/NX;
+f = 0:df:fs-df;
+YY = abs(X)/NX;
+
+Xg = fft(gaus);
+YYg = abs(Xg)/length(YYg);
+fsg = 1/ts;
+dfg = fsg/length(YYg);
+fg = 0:dfg:fsg-dfg;
+
+Xz = fft(zaszum);
+YYz = abs(Xz)/length(YYz);
+fsz = 1/ts;
+dfz = fsz/length(YYz);
+fz = 0:dfz:fsz-dfz;
+
+
+figure
+subplot(2,2,1);
+plot(0:N-1,splot);
+title('Splot')
+
+subplot(2,2,2);
+plot(f,YY);
+title('FFT splotu')
+
+subplot(2,2,3);
+plot(fg,YYg);
+title('FFT gaussa')
+
+
+subplot(2,2,4);
+plot(fz,YYz);
+title('FFT zaszumionego')
