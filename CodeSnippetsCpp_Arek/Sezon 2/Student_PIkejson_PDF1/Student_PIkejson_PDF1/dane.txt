@@ -1,3 +1,0 @@
-Arkadiusz;Marks;131335;4.500000;Informatyka:5,Matematyka:4,
-Agnieszka;Gebala;121345;4.500000;Informatyka:5,Fizyka:4,
-Mikolaj;Majk;124567;4.333333;Fizyka:4,Informatyka:5,Matematyka:4,

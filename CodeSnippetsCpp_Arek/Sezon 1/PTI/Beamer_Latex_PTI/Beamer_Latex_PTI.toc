@@ -1,3 +1,0 @@
-\select@language {polish}
-\beamer@sectionintoc {1}{Sekcja pe\IeC {\l }na list}{3}{0}{1}
-\beamer@sectionintoc {2}{Sekcja pe\IeC {\l }na bloczk\IeC {\'o}w}{9}{0}{2}
