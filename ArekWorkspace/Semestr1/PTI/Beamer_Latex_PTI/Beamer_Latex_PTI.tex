@@ -1,0 +1,81 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Nie wiem jak zmodyfikować tę stopkę
+
+\documentclass{beamer}
+\usepackage[polish]{babel} % język polski
+\usepackage[MeX]{polski} % język polski
+\usepackage[utf8]{inputenc} % język polski, latin2 lub cp1250
+\usetheme{Madrid}
+\useoutertheme{smoothbars} % modyfikacja nagłowku każdego slajdu
+\useinnertheme{rounded} % do modyfikacji takich bzdur jak na przykład liczby w kółeczkach przy enumeracji
+%\setbeamercovered{transparent} % transparent zostawia lekko widoczne inne czesci slajdu, pomiedzy przejsciami
+\usecolortheme{whale}
+
+
+
+\title{Prezentacja PTI}
+\subtitle {Czyli droga przez mękę}
+\author{Arkadiusz Marks}
+\institute{AiR I}
+\date{6 stycznia 2017}
+ 
+ 
+ 
+\begin{document}
+
+\begin{frame}
+	\maketitle
+\end{frame}
+
+\begin{frame} %{Spis Treści} opcjonalny naglówek slajdu
+	\tableofcontents
+\end{frame}
+
+
+\section{Sekcja pełna list} 
+
+
+\begin{frame}
+	%\frametitle{Sample frame title}
+	Przedmioty które lubię:
+	\begin{enumerate}
+		\item<1-> PTI
+		\item<2-> Język Polski
+		\item<3->	Widelec
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	%\frametitle{Sample frame title}
+	Przedmioty których nie lubię:
+	\begin{enumerate}
+		\item<1-1> PTI
+		\item<2-2> Język Polski
+		\item<3-3>	Widelec
+	\end{enumerate}
+\end{frame}
+ 
+\section{Sekcja pełna bloczków}
+
+
+\begin{frame}
+	\onslide<1-2>
+	{
+		\begin{block}{Bloczek Optymistyczny}
+		PTI to przedmiot łatwy i przyjemny, a także \alert{bardzo rozwijający}
+		\end{block}
+	}
+	\onslide<2-2>
+	{
+		\begin{block}{Bloczek Pesymistyczny}
+		 PTI to przedmiot łatwy i przyjemny, a także \alert{szalenie trudny do zaliczenia}
+		\end{block}
+	}
+	\onslide<3-3>
+	{
+		\setbeamercolor{block body}{use=structure,fg=black,bg=yellow}
+		\begin{block}{}
+		 A to żółty bloczek
+		\end{block}
+	}
+\end{frame}
+\end{document}
