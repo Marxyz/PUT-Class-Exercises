@@ -1,0 +1,21 @@
+(********************************************************************
+ * COPYRIGHT --  
+ ********************************************************************
+ * Program: NastawaPWM
+ * File: NastawaPWM.var
+ * Author: Arkadiusz
+ * Created: April 23, 2018
+ ********************************************************************
+ * Local variables of program NastawaPWM
+ ********************************************************************)
+VAR
+	upTime : REAL;
+	time : LREAL;
+	inputPerc : USINT := 0;
+	out1 : USINT := 0;
+	cycleIterator : INT := 0;
+	inputT_Ms : UDINT := 0;
+	inputAnalogowy : INT;
+	wynikNastawy : USINT;
+	inputVolt : REAL;
+END_VAR

@@ -1,0 +1,20 @@
+(********************************************************************
+ * COPYRIGHT --  
+ ********************************************************************
+ * File: Global.var
+ * Author: Arkadiusz
+ * Created: April 16, 2018
+ ********************************************************************
+ * Global variables of project test2
+ ********************************************************************)
+VAR
+	zadajnik : USINT;
+	output2 : USINT;
+	output1 : USINT;
+	input3 : USINT;
+	input2 : USINT;
+	input1 : USINT;
+	subs2Value : USINT;
+	subs1Value : USINT;
+	valuesSetFlag : USINT := 0;
+END_VAR

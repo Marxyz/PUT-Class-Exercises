@@ -1,0 +1,15 @@
+(********************************************************************
+ * COPYRIGHT --  
+ ********************************************************************
+ * Program: GettingInput
+ * File: GettingInput.var
+ * Author: Arkadiusz
+ * Created: April 25, 2018
+ ********************************************************************
+ * Local variables of program GettingInput
+ ********************************************************************)
+VAR
+	inputIterator : USINT := 0;
+	previousP2 : USINT := 0;
+	previousP1 : USINT := 0;
+END_VAR

@@ -1,0 +1,18 @@
+(********************************************************************
+ * COPYRIGHT --  
+ ********************************************************************
+ * Program: Testowy
+ * File: Testowy.var
+ * Author: Arkadiusz
+ * Created: April 16, 2018
+ ********************************************************************
+ * Local variables of program Testowy
+ ********************************************************************)
+VAR
+	upTime : REAL;
+	time : LREAL;
+	inputPerc : USINT := 0;
+	out1 : USINT := 0;
+	cycleIterator : INT := 0;
+	inputT_Ms : UDINT := 0;
+END_VAR
